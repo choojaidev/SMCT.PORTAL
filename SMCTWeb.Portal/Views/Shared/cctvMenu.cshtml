@@ -1,0 +1,161 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}@{
+    Layout = null;
+}
+<link rel="stylesheet" href="~/css/serviceMenu.css" />
+<link rel="stylesheet" href="~/css/serviceMenuAdditional.css" />
+<link rel="stylesheet" href="~/css/serviceMenuInline.css" />
+<link rel="stylesheet" href="~/css/cctvMenuItem.css" />
+<div class="entry-content pt-3" >
+    <div class="wp-block-group top-z-index has-light-green-cyan-background-color  has-background is-layout-constrained wp-block-group-is-layout-constrained -sh">
+        <div class="wp-block-group__inner-container" style="padding:30px">
+            <div style="height:24px" aria-hidden="true" class="wp-block-spacer"></div>
+
+
+
+            <h2 class="wp-block-heading has-text-align-center has-white-color has-large-font-size" id="features" style="text-align:center">
+                <strong>CCTV เขตเทศบาลเมือง</strong></h2>
+
+
+
+            <div style="height:34px" aria-hidden="true" class="wp-block-spacer"></div>
+
+
+
+            <div class="wp-block-group s-container is-layout-constrained wp-block-group-is-layout-constrained">
+                <div class="wp-block-group__inner-container">
+                    <div class="feature-archive-grid">
+                        <div class="front-feature-category-list">
+                            <div class="feature-category-dropdown">
+                                <button class="button">
+                                    <span class="text">
+                                        Additional Service
+                                    </span>
+                                    <svg class="dropdown-svg" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                                </button>
+                            </div>
+                          
+                        </div>
+
+                        <div class="front-feature-list-box">
+                            <div data-count="6" data-link="https://xn--72cst3czdd.com/feature/feature-category/popular-service/"
+                            class="feature-list-block -active" id="feature-list-block-0">
+                                <div class="feature-list">
+                                    <div class="feature-item">
+                                        <div class="thumb">
+                                            <a href="http://61.19.75.125:8554/T001" target="_blank">
+                                                <img loading="lazy" decoding="async"  src="~/images/smartcity/cctvon.png" 
+                                                class="attachment-feature_thumb size-feature_thumb wp-post-image" alt=""
+                                                sizes="(max-width: 480px) 100vw, 480px"/>
+                                            </a>
+                                        </div>
+                                        <div class="info">
+                                            <h3 class="title">
+                                                <a href="http://61.19.75.125:8554/T001" target="_blank">
+                                                    Lottery
+                                                </a>
+                                            </h3>
+                                        </div>
+                                        <div class="readmore" style="display:none">
+                                           
+                                        </div>
+                                    </div>
+                                    <div class="feature-item">
+                                        <div class="thumb">
+                                      
+                                            <a href="http://61.19.75.125:8554/T002" target="_blank">
+                                                <img loading="lazy" decoding="async" src="~/images/smartcity/cctvoff.png"
+                                                     class="attachment-feature_thumb size-feature_thumb wp-post-image" alt=""
+                                                     sizes="(max-width: 480px) 100vw, 480px" />
+                                            </a>
+                                        </div>
+                                        <div class="info">
+                                            <h3 class="title">
+                                                <a href="http://61.19.75.125:8554/T002" target="_blank">
+                                                    CCTV 2
+                                                </a>
+                                            </h3>
+                                        </div>
+                                        <div class="readmore" style="display:none">
+                                        </div>
+                                    </div>
+                                    <div class="feature-item">
+                                        <div class="thumb">
+                                            <a href="http://61.19.75.125:8554/T003" target="_blank">
+                                                <img loading="lazy" decoding="async" src="~/images/smartcity/cctvon.png"
+                                                     class="attachment-feature_thumb size-feature_thumb wp-post-image" alt=""
+                                                     sizes="(max-width: 480px) 100vw, 480px" />
+                                            </a>
+                                        </div>
+                                        <div class="info">
+                                            <h3 class="title">
+                                                <a href="http://61.19.75.125:8554/T003" target="_blank">
+                                                    CCTV 3
+                                                </a>
+                                            </h3>
+                                        </div>
+                                        <div class="readmore" style="display:none">
+                                        </div>
+                                    </div>
+
+
+
+
+
+                                </div>
+                            </div>
+                           
+                        </div>
+                    </div>
+                    <div class="feature-readmore"></div>
+                    <script type="text/javascript">
+                        const featureMenu = document.querySelector('.feature-category-menu');
+                        const featureMenuButtons = document.querySelectorAll('.feature-category-menu .button');
+                        const featureDropdownToggle = document.querySelector('.feature-category-dropdown .button');
+                        const featureDropdownToggleText = document.querySelector('.feature-category-dropdown .button .text');
+                        featureDropdownToggle.addEventListener('click', function () {
+                            featureMenu.classList.toggle('-active');
+                            featureDropdownToggle.classList.toggle('-active');
+                        });
+                        featureMenuButtons.forEach(function (featureMenuButton) {
+                            featureMenuButton.addEventListener('click', function (element) {
+                                featureMenuButtons.forEach(function (infeatureMenuButton) {
+                                    infeatureMenuButton.classList.remove('-active');
+                                });
+                                element.target.classList.add('-active');
+                                featureMenu.classList.remove('-active');
+                                featureDropdownToggle.classList.remove('-active');
+                                featureDropdownToggleText.textContent = featureMenuButton.textContent;
+                            });
+                        });
+
+                        const featureListBlock1 = document.getElementById('feature-list-block-0');
+                        if (featureListBlock1.getAttribute('data-count') > 6) {
+                            document.querySelector('.feature-readmore').innerHTML = '<a class="readmore" href="' + featureListBlock1.getAttribute('data-link') + '">เพิ่มเติม</a>';
+                        }
+
+                        function openFeatureContent(element) {
+                            const featureListBlocks = document.querySelectorAll('.feature-list-block');
+                            const featureListBlock = document.getElementById(element);
+                            const featureListBlockCount = featureListBlock.getAttribute('data-count');
+                            const featureListBlockLink = featureListBlock.getAttribute('data-link');
+                            featureListBlocks.forEach(function (featureListBlock) {
+                                featureListBlock.classList.remove('-active');
+                            });
+                            featureListBlock.classList.add('-active');
+                            if (featureListBlockCount > 6) {
+                                document.querySelector('.feature-readmore').innerHTML = '<a class="readmore" href="' + featureListBlockLink + '">เพิ่มเติม</a>';
+                            } else {
+                                document.querySelector('.feature-readmore').innerHTML = '';
+                            }
+                        }
+                    </script>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

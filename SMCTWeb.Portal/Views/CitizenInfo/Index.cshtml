@@ -1,0 +1,1131 @@
+﻿ 
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = "_LayoutMobile";
+}
+    @model SMCTPortal.Model.SMPeople.tbPeople
+@* <p>@Html.Raw(ViewBag.Citizens)</p> *@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+
+    <link rel="apple-touch-icon" type="image/png" href="https://cpwebassets.codepen.io/assets/favicon/apple-touch-icon-5ae1a0698dcc2402e9712f7d01ed509a57814f994c660df9f7a952f3060705ee.png">
+
+    <meta name="apple-mobile-web-app-title" content="CodePen">
+
+ @*    <link rel="shortcut icon" type="image/x-icon" href="https://cpwebassets.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico">
+
+    <link rel="mask-icon" type="image/x-icon" href="https://cpwebassets.codepen.io/assets/favicon/logo-pin-b4b4269c16397ad2f0f7a01bcdf513a1994f4c94b8af2f191c09eb0d601762b1.svg" color="#111">
+
+ *@
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="js/popper.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+    <script src="https://cpwebassets.codepen.io/assets/common/stopExecutionOnTimeout-2c7831bb44f98c1391d6a4ffda0e1fd302503391ca806e7fcc7b9b87197aec26.js"></script>
+
+
+    <title>Family Chart</title>
+
+    <link rel="canonical" href="https://codepen.io/bumbeishvili/pen/PzdOJP">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+    <style>
+        .node {
+            cursor: pointer;
+        }
+
+            .node circle {
+                fill: #fff;
+                stroke: steelblue;
+                stroke-width: 1.5px;
+            }
+
+            .node text {
+                font: 10px sans-serif;
+            }
+
+        .link {
+            fill: none;
+            stroke: #ccc;
+            stroke-width: 1.5px;
+        }
+
+        body {
+            overflow: hidden;
+        }
+
+        /* Tooltip css */
+
+        .customTooltip-wrapper {
+            top:60px;
+            opacity: 0;
+            /* NEW */
+            display: none;
+            position: absolute;
+        }
+
+        .customTooltip {
+            background: #eee;
+            /* NEW */
+            box-shadow: 0 0 5px #999999;
+            /* NEW */
+            color: #333;
+            /* NEW */
+            position: absolute;
+            /* NEW */
+            font-size: 12px;
+            /* NEW */
+            left: 130px;
+            /* NEW */
+            padding: 5px;
+            /* NEW */
+            /* NEW */
+            text-align: center;
+            /* NEW */
+            top: 95px;
+            /* NEW */
+            width: 350px;
+            /* NEW */
+            z-index: 10;
+            text-align: left;
+        }
+
+        .tooltip-desc, .tooltip-image-wrapper {
+            display: inline-block;
+            float: left;
+        }
+
+        .tooltip-desc {
+            padding-left: 10px;
+            margin-top: -10px;
+            overflow: auto;
+        }
+
+            .tooltip-desc h4 {
+                text-decoration: none;
+                color: black;
+                margin-bottom: 2px;
+                margin-top: 14px;
+            }
+
+            .tooltip-desc .name {
+                color: RoyalBlue;
+                margin-bottom: 2px;
+                margin-top: 14px;
+            }
+
+            .tooltip-desc .tags-wrapper .title {
+                display: inline-block;
+                float: left;
+            }
+
+            .tooltip-desc .tags-wrapper .tags {
+                display: inline-block;
+                float: left;
+            }
+        /* TAGS */
+
+
+        .tags {
+            list-style: none;
+            margin: 0;
+            overflow: hidden;
+            padding: 0;
+        }
+
+            .tags li {
+                float: left;
+            }
+
+        .tag {
+            font-size: 11px;
+            background: #a2b8bc;
+            border-radius: 1px 0 0 1px;
+            color: #f2f8f6;
+            display: inline-block;
+            height: 20px;
+            line-height: 20px;
+            padding: 0 5px 0 5px;
+            position: relative;
+            margin: 0 5px 5px 0;
+            text-decoration: none;
+            -webkit-transition: color 0.2s;
+        }
+
+
+
+
+
+
+
+
+
+
+        /* Find My Self button css*/
+
+        .btn {
+            padding: 0;
+            cursor: pointer;
+            padding: 5px;
+            overflow: hidden;
+            border-width: 0;
+            outline: none;
+            border-radius: 2px;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, .6);
+            background-color: #2ecc71;
+            color: #ecf0f1;
+            transition: background-color .3s;
+        }
+
+            .btn:hover, .btn:focus {
+                background-color: #27ae60;
+            }
+
+            .btn:active:before {
+                width: 20px;
+                padding-top: 20px;
+                ;
+                transition: width .2s ease-out, padding-top .2s ease-out;
+                left: 40px;
+            }
+
+
+            .btn:before {
+                content: "";
+                position: absolute;
+                display: block;
+                width: 0;
+                padding-top: 0;
+                border-radius: 100%;
+                background-color: rgba(236, 240, 241, .3);
+                -webkit-transform: translate(-20%, -20%);
+                -moz-transform: translate(-20%, -20%);
+                -ms-transform: translate(-20%, -20%);
+                -o-transform: translate(-20%, -20%);
+                transform: translate(-20%, -20%);
+            }
+
+        /* SVG */
+        text {
+            fill: dimgray;
+        }
+    </style>
+
+    <script>
+        window.console = window.console || function (t) { };
+    </script>
+
+
+
+</head>
+
+<body translate="no">
+    <div class="container-fluid">
+        <row style="text-align:center"><h2>Family Roots</h2></row> 
+       
+        <div id="body" style="height: 1600px;">
+            @*    <button class="btn" onclick="showMySelf()">show myself</button>
+            <svg width="1536" height="659"><g transform="translate(768,20)"><path class="link" x="85" y="30" d="M85,30C85,120 -10,120 -10,210"></path>
+            <path class="link" x="85" y="30" d="M85,30C85,120 180,120 180,210"></path><g class="node" transform="translate(95,180)">
+            <rect width="170" height="60" stroke="#cccccc" stroke-width="1" style="fill: rgb(176, 224, 230);"></rect>
+            <text x="50" y="10" dy=".35em" text-anchor="left"> Leverling Janet</text><text x="50" y="50" dy=".35em" text-anchor="left">
+            Corporate</text><text x="50" y="30" dy=".35em" text-anchor="left">CTO </text>
+            <image x="0" y="0" width="42.857142857142854" height="60"
+            xlink:href="https://raw.githubusercontent.com/bumbeishvili/Assets/master/Projects/D3/Organization%20Chart/female.jpg"></image></g>
+            <g class="node" transform="translate(-95,180)"><rect width="170" height="60" stroke="#cccccc" stroke-width="1"
+            style="fill: rgb(176, 224, 230);"></rect><text x="50" y="10" dy=".35em" text-anchor="left">Davolio Nancy</text>
+            <text x="50" y="50" dy=".35em" text-anchor="left">Corporate</text><text x="50" y="30" dy=".35em" text-anchor="left">CTO </text>
+            <image x="0" y="0" width="42.857142857142854" height="60"
+            xlink:href="https://raw.githubusercontent.com/bumbeishvili/Assets/master/Projects/D3/Organization%20Chart/general.jpg"></image></g>
+            <g class="node" transform="translate(0,0)"><rect width="170" height="60" stroke="#cccccc" stroke-width="1"
+            style="fill: rgb(245, 255, 250);"></rect><text x="50" y="10" dy=".35em" text-anchor="left">Ian Devling</text>
+            <text x="50" y="50" dy=".35em" text-anchor="left">Corporate</text><text x="50" y="30" dy=".35em" text-anchor="left">
+            Cheaf Executive Officer </text><image x="0" y="0" width="42.857142857142854" height="60" xlink:href="https://raw.githubusercontent.com/bumbeishvili/Assets/master/Projects/D3/Organization%20Chart/cto.jpg"></image>
+            </g></g></svg> *@
+        </div>
+
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
+        <script id="rendered-js">
+            var margin = {
+                top: 20,
+                right: 120,
+                bottom: 20,
+                left: 120
+            },
+
+                width = 2560 - margin.right - margin.left,
+                height = 1440 - margin.top - margin.bottom;
+
+            // var root = {
+            //     "name": "boonchoo cheuram",
+            //     "imageUrl": "/images/peoples/busman.png",
+            //     "area": "Corporate",
+            //     "profileUrl": "#",
+            //     "office": "CTO office",
+            //     "tags": "Ceo,tag1,manager,cto",
+            //     "isLoggedUser": false,
+            //     "positionName": "ข้อมูลส่วนบุคคล ",
+            //     "children": [{
+            //         "name": "ชื่อพ่อ",
+            //         "imageUrl": "/images/peoples/dad.png",
+            //         "area": "อายุ xx",
+            //         "profileUrl": "#",
+            //         "office": "CEO office",
+            //         "tags": "Ceo,tag1, tag2",
+            //         "isLoggedUser": false,
+            //         "positionName": "ข้อมูลพ่อ ",
+            //         "children": [{
+            //             "name": "ข้อมูลปู่",
+            //             "imageUrl": "/images/peoples/grandMother.png",
+            //             "area": "Corporate",
+            //             "profileUrl": "#",
+            //             "office": "CEO office",
+            //             "tags": "Ceo,tag1, tag2",
+            //             "isLoggedUser": false,
+            //             "positionName": "Linear Manager"
+            //         },
+            //         {
+            //             "name": "ชื่อย่า",
+            //             "imageUrl": "https://raw.githubusercontent.com/bumbeishvili/Assets/master/Projects/D3/Organization%20Chart/general.jpg",
+            //             "area": "Corporate",
+            //             "profileUrl": "#",
+            //             "office": "CEO office",
+            //             "tags": "Ceo,tag1, tag2",
+            //             "isLoggedUser": false,
+            //             "positionName": "ข้อมุลย่า"
+            //         },
+            //         {
+            //             "name": "ชื่อลุง",
+            //             "imageUrl": "https://raw.githubusercontent.com/bumbeishvili/Assets/master/Projects/D3/Organization%20Chart/general.jpg",
+            //             "area": "Corporate",
+            //             "profileUrl": "#",
+            //             "office": "CEO office",
+            //             "tags": "Ceo,tag1, tag2",
+            //             "isLoggedUser": false,
+            //             "positionName": "Head of direction"
+            //         },
+            //         {
+            //             "name": "ชื่อป้า",
+            //             "imageUrl": "https://raw.githubusercontent.com/bumbeishvili/Assets/master/Projects/D3/Organization%20Chart/general.jpg",
+            //             "area": "Corporate",
+            //             "profileUrl": "#",
+            //             "office": "CEO office",
+            //             "tags": "Ceo,tag1, tag2",
+            //             "isLoggedUser": false,
+            //             "positionName": "ข้อมูลป้า"
+            //         },
+            //         {
+            //             "name": "ชื่อญาติคนที่ 1",
+            //             "imageUrl": "https://raw.githubusercontent.com/bumbeishvili/Assets/master/Projects/D3/Organization%20Chart/general.jpg",
+            //             "area": "Corporate",
+            //             "profileUrl": "#",
+            //             "office": "CEO office",
+            //             "tags": "Ceo,tag1, tag2",
+            //             "isLoggedUser": false,
+            //             "positionName": "ข้อมูลญาติ 1",
+            //             "children": [{
+            //                 "name": "ชื่อหลานคนที่ 1",
+            //                 "imageUrl": "https://raw.githubusercontent.com/bumbeishvili/Assets/master/Projects/D3/Organization%20Chart/general.jpg",
+            //                 "area": "Corporate",
+            //                 "profileUrl": "#",
+            //                 "office": "CEO office",
+            //                 "tags": "Ceo,tag1, tag2",
+            //                 "isLoggedUser": false,
+            //                 "positionName": "ข้อมูลหลาน 1"
+            //             },
+            //             {
+            //                 "name": "ชื่อหลานคนที่ 2",
+            //                 "imageUrl": "https://raw.githubusercontent.com/bumbeishvili/Assets/master/Projects/D3/Organization%20Chart/general.jpg",
+            //                 "area": "Corporate",
+            //                 "profileUrl": "#",
+            //                 "office": "CEO office",
+            //                 "tags": "Ceo,tag1, tag2",
+            //                 "isLoggedUser": false,
+            //                 "positionName": "ข้อมุลหลานคนที่ 2"
+            //             }]
+            //         }
+
+            //          ]
+            //     },
+
+
+            //     {
+            //         "name": "ข้อมูลแม่",
+            //         "imageUrl": "/images/peoples/mom.png",
+            //         "area": "Corporate",
+            //         "profileUrl": "#",
+            //         "office": "CEO office",
+            //         "tags": "Ceo,tag1, tag2",
+            //         "isLoggedUser": false,
+            //         "positionName": "CTO ",
+            //         "children": [{
+            //             "name": "ชือ สกุล ตา",
+            //             "isLoggedUser": false,
+            //             "imageUrl": "/images/peoples/grandFhater.png",
+            //             "area": "อายุ xx",
+            //             "profileUrl": "#",
+            //             "office": "CEO office",
+            //             "tags": "Ceo,tag1, tag2",
+            //             "positionName": "ชื่อตา"
+
+            //         },
+
+            //         {
+            //             "name": "ชือ สกุล ยาย",
+            //             "imageUrl": "https://raw.githubusercontent.com/bumbeishvili/Assets/master/Projects/D3/Organization%20Chart/general.jpg",
+            //             "area": "อายุ xx",
+            //             "profileUrl": "#",
+            //             "office": "CEO office",
+            //             "tags": "Ceo,tag1, tag2",
+            //             "isLoggedUser": false,
+            //             "positionName": "ข้อมูลยาย",
+
+            //         },
+
+            //         {
+            //             "name": "ชื่อสกุลน้า 1",
+            //             "imageUrl": "https://raw.githubusercontent.com/bumbeishvili/Assets/master/Projects/D3/Organization%20Chart/general.jpg",
+            //             "area": "Corporate",
+            //             "profileUrl": "#",
+            //             "office": "CEO office",
+            //             "tags": "Ceo,tag1, tag2",
+            //             "isLoggedUser": false,
+            //             "positionName": "ข้อมูลน้าคนนที่ 1",
+            //             "children": [{
+            //                 "name": "ญาติคนที่ 1",
+            //                 "imageUrl": "https://raw.githubusercontent.com/bumbeishvili/Assets/master/Projects/D3/Organization%20Chart/bean.jpg",
+            //                 "area": "Corporate",
+            //                 "profileUrl": "#",
+            //                 "office": "CEO office",
+            //                 "tags": "Ceo,tag1, tag2",
+            //                 "isLoggedUser": false,
+            //                 "positionName": "ข้อมูลญาติ 1"
+            //             } ]
+            //         }]
+            //     }]
+            // };
+
+            var root = {
+                "_id":"@Model._id",
+                "citizenNo": "@Model.citizenNo",
+                "name": "@Model.Name",
+                "sureName": "@Model.SureName",
+                "imageUrl": "/images/peoples/busman.png",
+                "area": "-",
+                "profileUrl": "#",
+                "office": "CTO office",
+                "tags": "",
+                "isLoggedUser": false,
+                "positionName": "ข้อมูลส่วนบุคคล ",
+                "children": []
+            }
+            // var child = {
+            //     "_id":"@Model._id",
+            //     "name": "",
+            //     "sureName": "",
+            //     "imageUrl": "",
+            //     "area": "",
+            //     "profileUrl": "",
+            //     "office": "",
+            //     "tags": "",
+            //     "isLoggedUser": false,
+            //     "positionName": "",
+            //     "children": []
+            // };
+            var items = @Html.Raw(Json.Serialize(Model.family));
+            items.forEach(function (item) {
+                var child = {
+                    "_id":item._id,
+                    "name": item.name,
+                    "sureName": item.sureName ,
+
+                    "relations": item.relations,
+                    "imageUrl": "/images/peoples/girl1.png",
+                    "area": "-",
+                    "profileUrl": "z",
+                    "office": "x",
+                    "tags": "3",
+                    "isLoggedUser": false,
+                    "positionName": "-",
+                    "children": []
+                };
+                root.children.push(child);
+                console.log('Item name: ');
+                console.log(item);// Accessing the Name property of each item
+
+                console.log(child);// Accessing the Name property of each item
+            });
+            //  root.children.push(@Model.family)
+
+            var i = 0,
+                duration = 750,
+                rectW = 170,
+                rectH = 60;
+
+            var tree = d3.layout.tree().nodeSize([rectW + 20, rectH]);
+            var diagonal = d3.svg.diagonal().
+                projection(function (d) {
+                    return [d.x + rectW / 2, d.y + rectH / 2];
+                });
+
+            var svg = d3.select("#body").
+                append("svg").
+                attr("width", window.innerWidth).
+                attr("height", window.innerHeight).
+                call(zm = d3.behavior.zoom().scaleExtent([0.05, 3]).on("zoom", redraw)).
+                append("g").
+                attr("transform", "translate(" + window.innerWidth / 10 + "," + 20 + ")");
+
+            //necessary so that zoom knows where to zoom and unzoom from
+            zm.translate([window.innerWidth / 2, 20]);
+
+            root.x0 = 0;
+            root.y0 = height / 2;
+
+            function collapse(d) {
+                if (d.children) {
+                    d._children = d.children;
+                    d._children.forEach(collapse);
+                    d.children = null;
+                }
+            }
+
+            function findmySelf(d) {
+                if (d.isLoggedUser) {
+                    expandParents(d);
+                } else if (d._children) {
+                    d._children.forEach(function (ch) {
+                        ch.parent = d;
+                        findmySelf(ch);
+                    });
+                } else if (d.children) {
+                    d.children.forEach(function (ch) {
+                        ch.parent = d;
+                        findmySelf(ch);
+                    });
+                };
+
+            }
+
+            function expandParents(d) {
+                while (d.parent) {
+                    if (window.CP.shouldStopExecution(0)) break;
+                    d = d.parent;
+                    if (!d.children) {
+                        d.children = d._children;
+                        d._children = null;
+                    }
+
+                } window.CP.exitedLoop(0);
+            }
+
+            function showMySelf() {
+                if (!root.children) {
+                    if (!root.isLoggedUser) {
+                        root.children = root._children;
+                    }
+                }
+                if (root.children) {
+                    root.children.forEach(collapse);
+                    root.children.forEach(findmySelf);
+                }
+
+                update(root, true);
+            }
+            root.children.forEach(collapse);
+
+            update(root);
+
+            d3.select("#body").style("height", "800px");
+
+            var tooltip = d3.select('body').
+                append('div').
+                attr('class', 'customTooltip-wrapper');
+
+            function update(source, centerMySelf) {
+
+                // Compute the new tree layout.
+                var nodes = tree.nodes(root).reverse(),
+                    links = tree.links(nodes);
+
+                // Normalize for fixed-depth.
+                nodes.forEach(function (d) {
+                    d.y = d.depth * 180;
+                });
+
+                // Update the nodes…
+                var node = svg.selectAll("g.node").
+                    data(nodes, function (d) {
+                        return d.id || (d.id = ++i);
+                    });
+
+                // Enter any new nodes at the parent's previous position.
+                var nodeEnter = node.enter().append("g").
+                    attr("class", "node").
+                    attr("transform", function (d) {
+                        return "translate(" + source.x0 + "," + source.y0 + ")";
+                    }).
+                    on("click", click);
+
+                nodeEnter.append("rect").
+                    attr("width", rectW).
+                    attr("height", rectH).
+                    attr("stroke", "gray").
+                    attr("stroke-width", 1).
+                    style("fill", function (d) {
+                        return d._children ? "lightsteelblue" : "#fff";
+                    });
+
+                nodeEnter.append("text").
+                    attr("x", rectH * 3 / 4 + 5).
+                    attr("y", 10).
+                    attr("dy", ".35em").
+                    attr("text-anchor", "left").
+                    text(function (d) {
+                        return d.name;
+                    });
+
+                nodeEnter.append("text").
+                    attr("x", rectH * 3 / 4 + 5).
+                    attr("y", rectH - 10).
+                    attr("dy", ".35em").
+                    attr("text-anchor", "left").
+                    text(function (d) {
+                        return d.relations;
+                    });
+
+                nodeEnter.append("text").
+                    attr("x", rectH * 3 / 4 + 5).
+                    attr("y", 30).
+                    attr("dy", ".35em").
+                    attr("text-anchor", "left").
+                    text(function (d) {
+                        return d.sureName;
+                    });
+                nodeEnter.append("svg:image").
+                    attr('x', 0).
+                    attr('y', 0).
+                    attr('width', rectH * 100 / 140).
+                    attr('height', rectH).
+                    attr("xlink:href", function (v) {
+                        return v.imageUrl;
+                    });
+
+                // Transition nodes to their new position.
+                var nodeUpdate = node.transition().
+                    duration(duration).
+                    attr("transform", function (d) {
+                        return "translate(" + d.x + "," + d.y + ")";
+                    });
+
+                nodeUpdate.select("rect").
+                    attr("width", rectW).
+                    attr("height", rectH).
+                    attr("stroke", "#ccc").
+                    attr("stroke-width", 1).
+                    style("fill", function (d) {
+                        if (d.isLoggedUser) return "aquamarine";
+                        return d._children ? "PowderBlue" : "MintCream";
+                    });
+
+                nodeUpdate.select("text").
+                    style("fill-opacity", 1);
+
+                // Transition exiting nodes to the parent's new position.
+                var nodeExit = node.exit().transition().
+                    duration(duration).
+                    attr("transform", function (d) {
+                        return "translate(" + source.x + "," + source.y + ")";
+                    }).
+                    remove();
+
+                nodeExit.select("rect").
+                    attr("width", rectW).
+                    attr("height", rectH)
+                    //.attr("width", bbox.getBBox().width)""
+                    //.attr("height", bbox.getBBox().height)
+                    .attr("stroke", "black").
+                    attr("stroke-width", 1);
+
+                nodeExit.select("text");
+
+                // Update the links…
+                var link = svg.selectAll("path.link").
+                    data(links, function (d) {
+                        return d.target.id;
+                    });
+
+                // Enter any new links at the parent's previous position.
+                link.enter().insert("path", "g").
+                    attr("class", "link").
+                    attr("x", rectW / 2).
+                    attr("y", rectH / 2).
+                    attr("d", function (d) {
+                        var o = {
+                            x: source.x0,
+                            y: source.y0
+                        };
+
+                        return diagonal({
+                            source: o,
+                            target: o
+                        });
+
+                    });
+
+                // Transition links to their new position.
+                link.transition().
+                    duration(duration).
+                    attr("d", diagonal);
+
+                // Transition exiting nodes to the parent's new position.
+                link.exit().transition().
+                    duration(duration).
+                    attr("d", function (d) {
+                        var o = {
+                            x: source.x,
+                            y: source.y
+                        };
+
+                        return diagonal({
+                            source: o,
+                            target: o
+                        });
+
+                    }).
+                    remove();
+
+                // Stash the old positions for transition.
+                nodes.forEach(function (d) {
+                    d.x0 = d.x;
+                    d.y0 = d.y;
+                });
+
+                if (centerMySelf) {
+                    var x;
+                    var y;
+
+                    nodes.forEach(function (d) {
+                        if (d.isLoggedUser) {
+                            x = d.x;
+                            y = d.y;
+                        }
+
+                    });
+
+                    // normalize for width/height
+                    var new_x = -x + window.innerWidth / 2;
+                    var new_y = -y + window.innerHeight / 2;
+
+                    // move the main container g
+                    svg.attr("transform", "translate(" + new_x + "," + new_y + ")");
+                    zm.translate([new_x, new_y]);
+                    zm.scale(1);
+                }
+
+                /*################  TOOLTIP  #############################*/
+
+                function getTagsFromCommaSeparatedStrings(tags) {
+                    debugger;
+                    return tags.split(',').map(function (v) { return '<li><div class="tag">' + v + '</div></li>  '; }).join('');
+                }
+                function tooltipContent(params) {
+                    console.log('paramvalue');
+                    console.log(params);
+                   // alert('test')
+
+                    //href="' + params.profileUrl + '" target="_blank"
+                    var modalStr = '  <div style="top:30px;display:inline-block"><a class="customTooltipx" hre="#">  ' +
+                        '     <div class="tooltip-image-wrapper"> <img width="100" height="140" src="' + params.imageUrl + '">  ' +
+                        '     </div>  ' +
+                        '     <div class="row">' +
+                        '     <button class="btn btn-success" onclick="fnModalRemove(this)" data-citizenno="' + params.citizenNo + '" data-name="' + params.name + '" data-surename="' + params.surename + '" >ลบข้อมูล</button>' + 
+                        '     <button  class="btn btn-info pull-right" onclick="fnModalAdd(this)"><i class="bx bx-plus-circle"></i>เพิ่ม</button>' +
+                       // '     <button class="btn btn-danger" onclick="fnModalClose(this)" ><i class="fa fa-remove"></i> ปิด </button></div > ' +
+                        '     <div class="tooltip-desc">  ' +
+                        '       <h4 class="position">' + params.positionName + '</h4>  ' +
+                        '       <h4 class="area">' + params.area + ' </h4>  ' +
+                        '       <h3 class="name"> ' + params.name + ' <h3>  <h3 class="name"> ' + params.surename + ' <h3>   ' +
+                        '       <h4 class="office">' + params.Relations + '</h4>  ' +
+                        '       <h4 class="tags-wrapper">  ' +
+                        '           <span class="title">Tags: &nbsp;</span>  ' +
+                        '       <ul class="tags">  ' + getTagsFromCommaSeparatedStrings(params.tags) +
+                        '   </ul>  ' +
+                        '       </h4>  ' +
+                        '     </div>  ' +
+                        '  </a>  </div> ';
+
+                    var isRoot = true;
+                    if (params.parent != null) { isRoot = false; }
+                    console.log('isroot =>');
+                    console.log(isRoot);
+                    var modalBody = '';
+                    modalBody += ' <div class="card-body">';
+                    modalBody += '     <form action = "@Url.Action("edit")" >';
+
+                    modalBody += '    <input type="hidden" asp-for="_id"  name="_id" value="' + params._id + '" />';
+                    modalBody += '    <div class="form-row" style="display:none" >';
+                    modalBody += '         <div class="col-md-6" >';
+                    modalBody += '         <label>Citizen No </label>';
+                    modalBody += '         <input type = "text" asp-for= "citizenNo" id="txtCitizenNo"   placeholder = "CitizenNo" class="form-control" value="' + params.citizenNo  + '" />';
+                    modalBody += '         </div>';
+                    modalBody += '        <div class="col-md-6" style="display:none">';
+                    modalBody += '             <label>Last Name </label>';
+                    modalBody += '             <input type ="text" asp-for="name" placeholder ="Last Name" class="form-control" />';
+                    modalBody += '         </div>';
+                    modalBody += '   </div>';
+                    modalBody += '    <div class="form-row" >';
+                    modalBody += '         <div class="col-md-6" >';
+                    modalBody += '         <label>Name </label>';
+                    modalBody += '         <input type = "text" asp-for="Name" name="Name" '; if (isRoot) { modalBody += ' readonly ' }  modalBody += ' placeholder"Name" class="form-control" value="' + params.name + '" />';
+                    modalBody += '         </div>';
+                    modalBody += '        <div class="col-md-6">';
+                    modalBody += '             <label>Surename</label>';
+                    modalBody += '             <input type ="text" asp-for="SureName" name="SureName" '; if (isRoot) { modalBody += ' readonly ' } modalBody += ' placeholder="Sure Name" class="form-control" value="' + params.sureName + '" />';
+                    modalBody += '         </div>';
+                    modalBody += '   </div>';
+                    if (!isRoot) {
+                        modalBody += '    <div class="form-row" >';
+                        modalBody += '         <div class="col-md-6" >';
+                        modalBody += '         <label>ความเกี่ยวข้อง </label>';
+                        modalBody += '         <input type = "text" asp-for="Relations" name="Relations" placeholder="Name"  value="' + params.relations + '" class="form-control" />';
+                        modalBody += ' <select class="form-control"" style="display:none"> ';
+                        modalBody += ' <option></option>';
+                        modalBody += ' <option>พ่อ</option>';
+                        modalBody += ' <option>แม่</option>';
+                        modalBody += ' <option>พี่</option>';
+                        modalBody += ' <option>น้อง</option>';
+                        modalBody += ' </select>';
+                        modalBody += '         </div>';
+                    }
+                    modalBody += '        <div class="col-md-6" style="display:none">';
+                    modalBody += '             <label>Sure</label>';
+                    modalBody += '             <input type ="text" asp-for="id" id="txtSureName" placeholder ="Sure Name" class="form-control" />';
+                    modalBody += '         </div>';
+                    modalBody += '   </div>';
+
+                    modalBody += '   <div style="margin-top:15px;" class="modal-footer"><div class="container">';
+                    if (isRoot) {
+                        modalBody += '     <button type="button" class="btn btn-success pull-left" onclick="fnModalAdd(this)"><i class="bx bx-plus-circle"></i>เพิ่มสมาชิก</button>';
+                    } else {
+                        modalBody += '     <button type="button" class="btn btn-warning pull-left" onclick="fnModalRemove(this)" data-id="' + params._id + '" data-citizenno="' + params.citizenNo + '" data-name="' + params.name + '" data-surename="' + params.surename + '"><i class="bx bx-trash" ></i>ลบ</button>';
+                        modalBody += '     <button type="submit" class="btn btn-success pull-right"><i class="bx bx-save"></i>Save</button>';
+                    }
+                   
+                    
+
+                    modalBody += '    </div> </div>';
+                    modalBody += '    </form>';
+                    modalBody += ' </div>';
+                    $("#popupMessage .modal-footer").css('display', 'none');
+                    $("#popupMessage .modal-body").html(modalBody);
+                    $("#popupMessage").modal('show');
+                   
+                    return;
+                    return ' <div >' +
+                           ' <img width=120 height=160 src="' + params.imageUrl + '"/>' +
+                        ' <h3 class="tooltip-name">' + params.name + '</h3>' +
+                        ' <h5 class="tooltip-positionName">' + params.positionName + '</h3>' +
+                        ' <h5 class="tooltip-department">' + params.department + '</h3>' +
+                        ' <div><button>Add</button></div>' +
+                        ' </div>';
+                }
+
+                function tooltipHoverHandler(d) {
+
+                    tooltip.html(tooltipContent(d));
+
+                    tooltip.transition().
+                        duration(200).style("opacity", "1").style('display', 'block');
+                    d3.select(this).attr('cursor', 'pointer').attr("stroke-width", 50);
+                }
+
+                function tooltipOutHandler() {
+                    tooltip.transition().
+                        duration(200).
+                        style('opacity', '0').style('display', 'none');
+                    d3.select(this).attr("stroke-width", 5);
+                }
+
+                nodeEnter.on('mouseover', tooltipHoverHandler);
+
+                // nodeEnter.on('mouseout', tooltipOutHandler);
+
+                nodeEnter.on("mousemove", function (d) {
+                    var zoomIndex = (window.outerWidth - 8) / window.innerWidth;
+                    tooltip.style('top', /*d3.event.pageY - 300*/60 + 'px').
+                        style('left', /*d3.event.pageX - 200*/-125 + 'px');
+                });
+            }
+
+            // Toggle children on click.
+            function click(d) {
+                if (d.children) {
+                    d._children = d.children;
+                    d.children = null;
+                } else {
+                    d.children = d._children;
+                    d._children = null;
+                }
+                update(d);
+
+            }
+
+            //########################################################
+
+            //Redraw for zoom
+            function redraw() {
+                //console.log("here", d3.event.translate, d3.event.scale);
+                svg.attr("transform",
+                    "translate(" + d3.event.translate + ")" +
+                    " scale(" + d3.event.scale + ")");
+            }
+            //# sourceURL=pen.js
+        </script>
+
+        <script>
+            function fnModalAdd(e) {
+                $(".modal").modal('hide');
+                $("#txtAddName").val('');
+                $("#txtAddSureName").val('');
+                $("#txtAddRelation").val('');
+                $("#txtAddCitizenNo").val('');
+                $("#modalAdd input").val('');
+                $("#modalAdd input").removeAttr('readonly');
+
+                $("#modalAdd .modal-footer").css('display', 'none');
+                $(".modal-add").css('display', 'block')
+                $("#modalAdd").modal('show')
+                return;
+            }
+            function fnModalEdit(e) {
+                //  alert('try to show edit modal')
+                console.log('try to edit ');
+                console.log($(e).attr('data-name'));
+                $("#modalEdit #txtname").val($(e).attr('data-name'));
+                 $("#modalEdit #txtsurename").val($(e).attr('data-surename'));
+                $("#modalEdit").modal('show')
+                return;
+            }
+            function fnModalRemove(e) {
+                $(".modal").modal('hide');
+                // alert('try to show remove modal')
+                //$("#lblRemoveCitizenNo").html($(e).attr('data-citizenno');
+                $("#modalRemove .modal-footer").css('display', 'none');
+
+                $(".modal-remove").css('display', 'block')
+                $("#modalRemove #_id").val($(e).attr('data-id'));
+                $("#modalRemove #name").val($(e).attr('data-name'));
+                $("#modalRemove #surename").val($(e).attr('data-surename'));
+                $("#modalRemove").modal('show');
+                return;
+            }
+            function fnModalClose(e){
+                $(".customTooltip-wrapper").hide();
+            }
+        </script>
+        <div class="customTooltip-wrapper"></div>
+
+
+        <div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-labelledby="popupMessageLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="popupMessageLabel">Add New Person</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form action="@Url.Action("Create")">
+                        <div class="modal-body">
+
+                            <div class="container">
+
+                                <div class="form-group" style="display:none">
+                                    <div class="row">
+                                        <label class="col-form-label col-sm-4 pull-left" for="exampleInputText">CitizenNo</label>
+                                        <input type="text" class="form-control col-sm-6" asp-for="citizenNo" id="txtAddCitizenNo" formnovalidate>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label class="col-form-label col-sm-4 pull-left" asp-for="Name" for="Name">Name</label>
+                                        <input type="text" class="form-control col-sm-6" asp-for="Name">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label class="col-form-label col-sm-4" for="exampleInputText">SureName</label>
+                                        <input type="text" class="form-control col-sm-6" asp-for="SureName">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label class="col-form-label col-sm-4" for="exampleInputText">Relations</label>
+                                        <input type="text" class="form-control col-sm-6" asp-for="Relations">
+                                    </div>
+                                </div>
+                                <div class="form-group" style="display:none">
+                                    <div class="row">
+                                        <label class="col-form-label col-sm-4" for="exampleInputText">Relations</label>
+                                        @*  <input type="text" asp-for="Relations" class="form-control col-sm-6" id="txtRelation" placeholder="Enter text"> *@
+                                        <select asp-for="Relations" id="ddlAddRelations">
+                                            <option></option>
+                                            <option>พ่อ</option>
+                                            <option>แม่</option>
+                                            <option>พี่สาว</option>
+                                            <option>พี่ชาย</option>
+                                            <option>น้องสาว</option>
+                                            <option>น้องชาย</option>
+                                            <option>หลานสาว</option>
+                                            <option>หลานชาย</option>
+                                            <option>ปู่</option>
+                                            <option>ย่า</option>
+                                            <option>ตา</option>
+                                            <option>ยาย</option>
+                                            <option>อื่นๆ</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+
+
+
+                            </div>
+                        </div>
+                        <div class="modal-footer modal-add">
+                            <button type="submit" class="btn btn-info">Save</button>
+                            @*     <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
+                            *@
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="modalEdit" tabindex="-1" role="dialog" 
+        aria-labelledby="popupMessageLabel" 
+        aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="popupMessageLabel">Update Personal Info</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    @*  @model SMCTPortal.Model.SMPeople.tbPeople *@
+
+
+                    <form action="@Url.Action("EditFamily")">
+                        <div class="modal-body" style="text-align:center;">
+
+                            <div class="container">
+
+                                 
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label class="col-form-label col-sm-4 pull-left" asp-for="citizenNo" for="exampleInputText">citizenNo</label>
+                                        <input type="text" asp-for="citizenNo" class="form-control col-sm-6" id="txtEditCitizenNo" readonly>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label class="col-form-label col-sm-4 pull-left" asp-for="Name" for="exampleInputText">Name</label>
+                                        <input type="text" name="Name" class="form-control col-sm-6" id="txtEditName" readonly />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label class="col-form-label col-sm-4" for="exampleInputText">SureName</label>
+                                        <input type="text" name="SureName" id="txtEditsurename" class="form-control col-sm-6" placeholder="Enter text" readonly />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label class="col-form-label col-sm-4" for="exampleInputText">Relations</label>
+                                        <select name="Relations" id="ddlEditRelations">
+                                            <option></option>
+                                            <option>พ่อ</option>
+                                            <option>แม่</option>
+                                            <option>พี่สาว</option>
+                                            <option>พี่ชาย</option>
+                                            <option>น้องสาว</option>
+                                            <option>น้องชาย</option>
+                                            <option>หลานสาว</option>
+                                            <option>หลานชาย</option>
+                                            <option>ปู่</option>
+                                            <option>ย่า</option>
+                                            <option>ตา</option>
+                                            <option>ยาย</option>
+                                            <option>อื่นๆ</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+
+
+
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-info">Save</button>
+                            @*     <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
+                            *@
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="modalRemove" tabindex="-1" role="dialog" aria-labelledby="popupMessageLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content" style="width:800px">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="popupMessageLabel">Remove Data</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form action="@Url.Action("Delete")">
+                        <input type="hidden" asp-for="_id" id="_id" name="_id" />
+                        <input type="hidden" asp-for="Name" id="name" name="name" />
+                        <input type="hidden" asp-for="SureName" id="surename" name="surename" />
+
+                        <div class="modal-body" style="text-align:center;display:none">
+
+                            <div class="container">
+
+
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label class="col-form-label col-sm-4 pull-left" asp-for="citizenNo" for="exampleInputText">citizenNo</label>
+                                        <input type="hidden" asp-for="citizenNo" class="form-control col-sm-6" id="txtEditCitizenNo" readonly>
+                                    </div>
+                                </div>
+                            
+                                <h1>ยืนยันการลบข้อมูลเลขบัตรประชาชน : <label id="lblRemoveCitizenNo"></label></h1>
+
+
+                            </div>
+                        </div>
+                        <div class="modal-footer modal-remove">
+                            <button type="submit" class="btn btn-info">ยืนยัน</button>                     
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+   
+  
+</body>
+</html>

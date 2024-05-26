@@ -1,0 +1,13 @@
+﻿{
+  "profiles": {
+    "Host": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "launchUrl": "https://localhost:44302/portal",
+      "applicationUrl": "https://localhost:44302",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}

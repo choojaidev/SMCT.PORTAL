@@ -1,0 +1,157 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<!-- Created by CodingLab |www.youtube.com/CodingLabYT-->
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <title> Smart City Surat </title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Boxicons CDN Link -->
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="css/menu.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo-details">
+            <i class='bx bxl-c-plus-plus icon'></i>
+            <div class="logo_name">Smart City</div>
+            <i class='bx bx-menu' id="btn"></i>
+        </div>
+        <ul class="nav-list">
+            <li>
+                <i class='bx bx-search'></i>
+                <input type="text" placeholder="Search...">
+                <span class="tooltip">Search</span>
+            </li>
+            <li>
+                <a href="#">
+                    <i class='bx bx-buildings'></i>
+                    <span class="links_name">Smart City</span>
+                </a>
+                <span class="tooltip">Smart City</span>
+            </li>
+            <li>
+                <a href="#">
+                    <i class='bx bx-bug'></i>
+                    <span class="links_name">Smart Economy</span>
+                </a>
+                <span class="tooltip">Smart Economy</span>
+            </li>
+            <li>
+                <a href="#">
+                    <i class='bx bxs-tree'></i>
+                    <span class="links_name">Smart Environment</span>
+                </a>
+                <span class="tooltip">Smart Environment</span>
+            </li>
+            <li>
+                <a href="#">
+                    <i class='bx bx-building-house'></i>
+                    <span class="links_name">Smart Government</span>
+                </a>
+                <span class="tooltip">Smart Government</span>
+            </li>
+            <li>
+                <a href="#">
+                    <i class='bx bx-home'></i>
+                    <span class="links_name">Smart Living</span>
+                </a>
+                <span class="tooltip">Smart Living</span>
+            </li>
+            <li>
+                <a href="#">
+                    <i class='bx bxs-car'></i>
+                    <span class="links_name">Smart Mobility</span>
+                </a>
+                <span class="tooltip">Smart Mobility</span>
+            </li>
+            <li>
+                <a href="#">
+                    <i class='bx bx-world'></i>
+                    <span class="links_name">Smart Energy</span>
+                </a>
+                <span class="tooltip">Smart Energy</span>
+            </li>
+            <li>
+                <a href="#">
+                    <i class='bx bx-cog'></i>
+                    <span class="links_name">Setting</span>
+                </a>
+                <span class="tooltip">Setting</span>
+            </li>
+            <li class="profile">
+                <div class="profile-details">
+                    <i class='bx bx-log-out' id="log_out"></i>
+                    <div class="name_job">
+                        <div class="name">@Context.User.Identity.Name</div>
+                        <div class="job">smartcityClick.com</div>
+                    </div>
+                </div>
+             
+
+                @if (!Context.User.Identity.IsAuthenticated)
+                {
+              
+                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Secure">
+                        เข้าสู่ระบบ
+                    </a>
+                
+                }
+                else
+                {
+ <a asp-area="" asp-controller="Home" asp-action="Logout">
+                    <i class='bx bx-log-out' id="log_out"></i>
+                </a>
+                    
+                }
+               
+            </li>
+        </ul>
+    </div>
+    <section class="home-section">
+        <div class="container-fluid py-5">
+            <img src="~/images/smartcity/Smart city 7 smart.jpg" height="990px" />
+        </div>
+        <div class="container-fluid py-5">
+            @{
+               
+                Html.RenderPartial("serviceMenu");
+                Html.RenderPartial("additionalMenu");
+
+      }
+      </div>
+    </section>
+    <script>
+        let sidebar = document.querySelector(".sidebar");
+        let closeBtn = document.querySelector("#btn");
+        let searchBtn = document.querySelector(".bx-search");
+
+        closeBtn.addEventListener("click", ()=>{
+          sidebar.classList.toggle("open");
+          menuBtnChange();//calling the function(optional)
+        });
+
+        searchBtn.addEventListener("click", ()=>{ // Sidebar open when you click on the search iocn
+          sidebar.classList.toggle("open");
+          menuBtnChange(); //calling the function(optional)
+        });
+
+        // following are the code to change sidebar button(optional)
+        function menuBtnChange() {
+         if(sidebar.classList.contains("open")){
+           closeBtn.classList.replace("bx-menu", "bx-menu-alt-right");//replacing the iocns class
+         }else {
+           closeBtn.classList.replace("bx-menu-alt-right","bx-menu");//replacing the iocns class
+         }
+        }
+    </script>
+</body>
+</html>

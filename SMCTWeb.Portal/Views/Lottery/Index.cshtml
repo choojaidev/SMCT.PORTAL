@@ -1,0 +1,154 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@{
+    Layout = null;
+}
+@model SMCTPortal.Model.SMAdditional.Lotterys.contentData;
+
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link href="~/css/lotto/lottoItem.css" rel="stylesheet" />
+
+
+@{
+    var liveURL = Model.response.youtube_url.Substring(Model.response.youtube_url.IndexOf("?v=") + 2, Model.response.youtube_url.Length - (Model.response.youtube_url.IndexOf("?v=") + 2));
+}
+<script>
+    console.log('original  =>@Model.response.youtube_url')
+    console.log('clean url =>@liveURL');
+
+</script>
+<div class="container-fluid" style="text-align:center">
+    <iframe width="800" height="600" 
+        src="https://www.youtube.com/embed/@liveURL?autoplay=1" frameborder="0" allowfullscreen></iframe>
+</div>
+
+<!-- Team -->
+<section id="team" class="pb-5">
+    <div class="container">
+        <h5 class="section-title h1">ผลออกสลากกินแบ่งรัฐบาลประจำวันที่ : @Model.response.date</h5>
+        <div class="row" >
+            <!-- Team member -->
+            <div class="col-sm-12" >
+                <div class="image-flip"  style="text-align:center">
+                    <div class="mainflip flip-0">
+                        <div class="frontside">
+                            <div class="card">
+                                <div class="card-body text-center">
+                                     <h4 class="card-title">รางวันที่ 1 </h4>
+                                    <p class="card-text">เงินรางวัล : @Model.response.data.first.price</p>
+                                  <img src="/images/smartcity/money1.png" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="backside">
+                            <div class="card">
+                                <div class="card-body text-center mt-4">
+                                    <h4 class="card-title">รางวัลที่ออก</h4>
+                                    <p class="card-text" style="font-size:2em;">@Model.response.data.first.number[0].value</p>
+                                     
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          
+
+        </div>
+        <div class="row">
+            <!-- Team member -->
+            <div class="col-xs-12 col-sm-6 col-md-4">
+            
+                    <div class="mainflip flip-0">
+                        <div class="frontside">
+                            <div class="card">
+                                <div class="card-body text-center">
+                                     <h4 class="card-title">รางวันที่ 2 </h4>
+                                    <p class="card-text">เงินรางวัล : @Model.response.data.second.price</p>
+                                <img src="~/images/smartcity/money.png" />
+                                <hr />
+                                <h4 class="card-title">รางวัลที่ออก</h4>
+                                @foreach (var item in Model.response.data.second.number)
+                                {
+                                    <p class="card-text" style="font-size:2em;">@item.value</p>
+                                }
+                                </div>
+
+                            </div>
+                       
+                        </div>
+                        
+                    </div>
+             
+            </div>
+
+            <div class="col-xs-12 col-sm-6 col-md-4">
+
+                <div class="mainflip flip-0">
+                    <div class="frontside">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <h4 class="card-title">รางเลขท้าย 3 ตัว</h4>
+                                <p class="card-text">เงินรางวัล : @Model.response.data.last3b.price</p>
+                                <img src="~/images/smartcity/money.png" /><hr />
+                                <h4 class="card-title">รางวัลที่ออก</h4>
+                                @foreach (var item in Model.response.data.last3b.number)
+                                {
+                                    <p class="card-text" style="font-size:2em;">@item.value</p>
+                                }
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-xs-12 col-sm-6 col-md-4">
+
+                <div class="mainflip flip-0">
+                    <div class="frontside">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <h4 class="card-title">รางเลขท้าย 2 ตัว</h4>
+                                <p class="card-text">เงินรางวัล : @Model.response.data.last2.price</p>
+                                <img src="~/images/smartcity/money.png" />
+                                <hr />
+                                <h4 class="card-title">รางวัลที่ออก</h4>
+                                @foreach (var item in Model.response.data.last2.number)
+                                {
+                                    <p class="card-text" style="font-size:2em;">@item.value</p>
+                                }
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Team member -->
+            
+
+
+        </div>
+
+        <div class="row">
+            <!-- Team member -->
+            
+
+
+        </div>
+    </div>
+</section>

@@ -1,0 +1,20 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@{
+    Layout = null;
+}
+@model List<SMCTPortal.Model.ScrapedData>
+
+<h2>Scraped Data</h2>
+
+<ul>
+    @foreach (var data in Model)
+    {
+        <li>
+            <strong>@data.Title:</strong> <a href="@data.Url" target="_blank">@data.Url</a>
+        </li>
+    }
+</ul>

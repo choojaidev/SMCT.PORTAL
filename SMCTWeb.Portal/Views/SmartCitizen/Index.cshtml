@@ -1,0 +1,860 @@
+﻿ 
+@{
+    Layout = "_LayoutMobile";
+}
+@* <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+<script src="js/popper.js"></script>
+ *@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+@* @section scripts {
+    <script>
+        // Check if ViewBag.Message is not null or empty before displaying the popup
+        var message = @ViewBag.Message;
+        if (message != '') {
+            // Use Bootstrap modal for a more sophisticated popup
+            $('#popupMessage').modal('show');
+        }
+    </script>
+} *@
+
+@model SMCTPortal.Model.SMPeople.tbPeople;
+ 
+<script>
+    Swal.fire('ยินดีต้องรับสู่ระบบบันทึกข้อมูลอัจจริยะ เทศบาลเมืองสุราษธานี')
+
+</script>
+ 
+<script>
+    
+
+
+    if ("@ViewBag.Msg.text" != "") { showMsg(); }
+    function showMsg() {
+
+        Swal.fire({
+            title: "@ViewBag.Msg.title",
+            text: "@ViewBag.Msg.text",
+            icon: "@ViewBag.Msg.icon"
+        });
+    }
+</script>
+
+
+<head>
+    <title>Smart People</title>
+    <meta charset="utf-8" />
+@*     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script> *@
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        .canvas {
+            width: 766px;
+            height: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .button {
+            width: 100px;
+            height: 100px;
+            border-radius: 16px;
+            border: double 2px transparent;
+            background-image: linear-gradient(white, white), linear-gradient(to right bottom, #38F1C5, #1EB7FB);
+            background-origin: border-box;
+            background-clip: content-box, border-box;
+            border: double 3px transparent;
+           /*  position: absolute; */
+            z-index: 999;
+            transition: all 0.3s;
+        }
+
+            .button:hover {
+                cursor: pointer;
+                background-image: linear-gradient(white, white), linear-gradient(to right bottom, #1EB7FB, #534ce8);
+                box-shadow: 0 0 8px rgba(83, 76, 232, 0.3);
+            }
+
+                .button:hover h5 {
+                    color: #534ce8;
+                }
+
+            .button img {
+                width: 60px;
+                height: 60px;
+                margin: 0 auto;
+                display: block;
+            }
+
+            .button h5 {
+                text-align: center;
+                font-weight: normal;
+                font-size: 12px;
+                vertical-align: cneter;
+                line-height: 36px;
+                margin: 0;
+                color: #1EB7FB;
+            }
+
+            .button a {
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+            }
+
+        .internet {
+           /*  left: calc((766px - 100px)/2); */
+           left:100px;
+            top: calc((800px - 500px)/2 - 100px/2);
+        }
+
+        .end_user {
+            top: calc(800px/2 - 100px/2);
+            left: calc((766px - 500px)/2 - 100px*1.5);
+        }
+
+        .dns {
+            top: calc(800px/2 - 100px/2);
+            left: calc((766px - 500px)/2 + 100px*0.3);
+        }
+
+        .multi_cdn {
+            left: calc((766px - 100px)/2);
+            top: calc((800px - 500px)/2 - 100px/2 + 500px/3);
+        }
+
+        .cdn {
+            left: calc((766px - 100px)/2);
+            top: calc((800px - 500px)/2 - 100px/2 + 500px/3*2);
+        }
+
+        .cyber_security {
+            top: calc(800px/2 - 100px/2);
+            left: calc((766px - 500px)/2 + 500px - 100px*1.3);
+        }
+
+        .origin {
+            top: calc(800px/2 - 100px/2);
+            left: calc((766px - 500px)/2 + 500px + 100px*0.5);
+        }
+
+        .cyber_attack {
+            top: calc((800px - 500px)/2 + 500px/4*3 - 100px/2);
+            left: calc();
+            left: calc((766px - 500px)/2 + 500px - 100px*0.9);
+        }
+
+        .cyber_monitoring {
+            top: calc((800px - 500px)/2 + 500px/4*3 - 100px/2);
+            left: calc((766px - 500px)/2 - 100px*0.2);
+        }
+
+        .circle {
+            width: 500px;
+            height: 500px;
+            border: double 2px transparent;
+            background-image: linear-gradient(white, white), linear-gradient(to right bottom, #38F1C5, #1EB7FB);
+            background-origin: border-box;
+            background-clip: content-box, border-box;
+            border-radius: 50%;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0.2;
+            overflow: hidden;
+        }
+
+        .h_line {
+            width: 100%;
+            height: calc(500px/2);
+            border: double 2px transparent;
+            background-image: linear-gradient(white, white), linear-gradient(to right bottom, #38F1C5, #1EB7FB);
+            background-origin: border-box;
+            background-clip: content-box, border-box;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .arc_1, .arc_2 {
+            width: calc(500px*2);
+            height: calc(500px*2);
+            border: 1px solid #1EB7FB;
+            border-radius: 50%;
+            position: absolute;
+            top: -50%;
+        }
+
+        .arc_1 {
+            left: calc(500px/3);
+        }
+
+        .arc_2 {
+            right: calc(500px/3);
+        }
+
+        .diagram {
+            width: calc(500px/3);
+            height: calc(500px/3);
+            border: double 2px transparent;
+            background-image: linear-gradient(white, white), linear-gradient(to right bottom, #38F1C5, #1EB7FB);
+            background-origin: border-box;
+            background-clip: content-box, border-box;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 40px;
+            border: double 10px transparent;
+            background-image: linear-gradient(white, white), linear-gradient(to right, #38F1C5, #1EB7FB);
+        }
+
+            .diagram:before {
+                content: '';
+                width: calc(500px/2);
+                height: 10px;
+                background: #38F1C5;
+                position: absolute;
+                left: calc(-500px/2);
+                top: 50%;
+                transform: translateY(-50%);
+            }
+
+            .diagram:after {
+                content: '';
+                width: calc(500px/2);
+                height: 10px;
+                background: #1EB7FB;
+                position: absolute;
+                left: calc(500px/3 - 11px);
+                top: 50%;
+                transform: translateY(-50%);
+            }
+
+    </style>
+</head>
+<body>
+    
+ 
+    <div class="row" style=display:none>
+        <div class="col-sm-4">
+            <div class="button" style="margin-right:120px;width:100%">
+                <a href="/CitizenInfo"> </a><img src="/images/peoples/busman.png" />
+                <h5>แผนผังครอบครัว</h5>
+            </div>
+            
+        </div>
+        <div class="col-sm-4" style="display:none;">
+            <div class="button" style="width:200px;">
+                <a href="/Portal"> </a><img src="/images/icosmt/peo.png" />
+                <h5>Back</h5>
+            </div>
+        </div>
+
+    </div>
+    <div class="row">
+
+        <div class="col-sm-11">
+
+            @* organize chart *@
+            @*   <div class="canvas">
+            <div class="circle">
+            <div class="h_line"></div>
+            <div class="arc_1"></div>
+            <div class="arc_2"></div>
+            </div>
+            <div class="diagram"></div>
+            <div class="button internet">
+            <a href="#perdata"> </a><img src="/images/peoples/busman.png" />
+            <h5>แผนผังครอบครัว</h5>
+            </div>
+            <div class="button end_user">
+            <a href="#"> </a><img src="/images/peoples/girl1.png" />
+            <h5>พี่สาว</h5>
+            </div>
+            <div class="button dns">
+            <a href="#"> </a><img src="/images/peoples/busman.png" />
+            <h5>พี่ชาย</h5>
+            </div>
+            <div class="button multi_cdn">
+            <a href="#"> </a><img src="/images/peoples/dad.png" />
+            <h5>พ่อ</h5>
+            </div>
+            <div class="button cdn">
+            <a href="#"> </a><img src="/images/peoples/mom.png" />
+            <h5>แม่</h5>
+            </div>
+            <div class="button cyber_security">
+            <a href="#"> </a><img src="/images/peoples/busman.png" />
+            <h5>พี่ชาย</h5>
+            </div>
+            <div class="button origin">
+            <a href="#"> </a><img src="/images/peoples/boy.png" />
+            <h5>น้องชาย</h5>
+            </div>
+            <div class="button cyber_attack">
+            <a href="#"> </a><img src="/images/peoples/mom.png" />
+            <h5>ป้า</h5>
+            </div>
+            <div class="button cyber_monitoring">
+            <a href="#"> </a><img src="/images/peoples/dad.png" />
+            <h5>ลุง</h5>
+            </div>
+            </div> *@
+            @* End organize chart *@
+
+            <div class="container py-5" id="perdata">
+                <div class="button" style="margin-right:120px;width:100%">
+                    <a href="/CitizenInfo"> </a><img src="/images/peoples/busman.png" />
+                    <h5>แผนผังครอบครัว</h5>
+                </div>
+                <div class="card">
+                    <div class="card-header bg-info text-white">
+                        <h4 class="text-uppercase text-center">Smart People Data</h4>
+                    </div>
+
+
+                    <div class="card-body">
+                        <form action="@Url.Action("edit")">
+                            <div class="form-row">
+                                <div class="col-md-6">
+                                    <label>Citizen No</label>
+                                    <input type="text" asp-for="citizenNo"placeholder="CitizenNo" class="form-control" />
+                                </div>
+                                <div class="col-md-6" style="display:none">
+                                    <label>Last Name</label>
+                                    <input type="text" asp-for="_id" placeholder="Last Name" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-6">
+                                    <label>First Name</label>
+                                    <input type="text" asp-for="Name" placeholder="First Name" class="form-control" />
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Last Name</label>
+                                    <input type="text" asp-for="SureName" placeholder="Last Name" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-6">
+                                    <label>Date of Birth</label>
+                                    <input type="date" asp-for="DateOfBirth" class="form-control" />
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Address</label>
+                                    <input type="text" asp-for="Address" placeholder="Last Name" class="form-control" />
+
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-6">
+                                    <label>Email Address</label>
+                                    <input type="email" asp-for="Email" class="form-control" placeholder="Enter Email Address" />
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Mobile Number</label>
+                                    <input type="tel" asp-for="PhoneNo" pattern="^\d{10}$" placeholder="Enter Mobile Number" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="form-row" style="display:none">
+                                <div class="col-md-6">
+                                    <label>Website</label>
+                                    <input type="url" placeholder="Enter Your Website" class="form-control" />
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Password</label>
+                                    <input type="password" placeholder="Password" class="form-control" />
+                                </div>
+                            </div>
+                            <div style="margin-top:15px;">
+
+                                <button type="submit" class="btn btn-primary rounded-0">บันทึก</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="container py-5">
+                <div class="card">
+                    <div class="card-header bg-info text-white">
+                        <h4 class="text-uppercase text-center">Education Data</h4>
+                    </div>
+                    
+                    <div class="card-body">
+                        <form action="@Url.Action("EditEdu")">
+                          
+                           <input type="hidden" asp-for="citizenNo" />
+                            @for(int i=0;i< Model.educationInfos.Count; i++)
+                            {
+                                @*  <div class="row">
+                                    @Html.LabelFor(m => Model.educationInfos[i].eduLevel)
+                                    @Html.TextBoxFor(m => Model.educationInfos[i].eduLevel)
+                                </div>
+                                <div class="row">
+                                    @Html.LabelFor(m => Model.educationInfos[i].eduInstitution)
+                                    @Html.TextBoxFor(m => Model.educationInfos[i].eduInstitution)
+                                </div> *@
+                                @if (i > 0)
+                                
+                                {
+                                <hr />    
+                                }
+                                <div class="form-row">
+                                    <div class="col-md-6">
+                                        <label>@(i + 1) : ระดับการศึกษา</label>
+                                        @Html.TextBoxFor(m => Model.educationInfos[i].eduLevel,new {@class="form-control"})
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label>สถานศึกษา</label>
+                                        @Html.TextBoxFor(m => Model.educationInfos[i].eduInstitution, new { @class = "form-control" })
+                                    </div>
+
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-md-6">
+                                        <label>จากปี</label>
+                                        @Html.TextBoxFor(m => Model.educationInfos[i].eduSinceYear, new { @class = "form-control" })
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label>ถึงปี</label>
+                                        @Html.TextBoxFor(m => Model.educationInfos[i].eduToYear, new { @class = "form-control" })
+                                    </div>
+
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-md-3">
+                                        <label>เกรดเฉลี่ย</label>
+                                        @Html.TextBoxFor(m => Model.educationInfos[i].eduGPA, new { @class = "form-control" })
+                                    </div>
+                                    <div class="col-md-9">
+                                        <label>ความสามารถพิเศษ</label>
+                                        @Html.TextBoxFor(m => Model.educationInfos[i].eduExcellent, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            }
+                            @*    @foreach (var itm in Model.educationInfos)
+                                {
+                                    <div class="form-row">
+                                        <div class="col-md-6">
+                                            <label>1 : ระดับการศึกษา</label>
+                                            <input type="text" asp-for="@itm.eduLevel"
+                                            placeholder="CitizenNo" class="form-control" />
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label>สถานศึกษา</label>
+                                            <input type="text" asp-for="@itm.eduInstitution" placeholder="CitizenNo" class="form-control" />
+                                        </div>
+
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="col-md-6">
+                                            <label>จากปี</label>
+                                            <input type="text" asp-for="@itm.eduSinceYear" placeholder="Last Name" class="form-control" />
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label>ถึงปี</label>
+                                            <input type="text" asp-for="@itm.eduToYear" placeholder="First Name" class="form-control" />
+                                        </div>
+
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="col-md-3">
+                                            <label>เกรดเฉลี่ย</label>
+                                            <input type="text" asp-for="@itm.eduGPA" class="form-control" />
+                                        </div>
+                                        <div class="col-md-9">
+                                            <label>ความสามารถพิเศษ</label>
+                                            <input type="text" asp-for="@itm.eduExcellent" class="form-control" />
+                                        </div>
+                                    </div>
+                                }
+ *@
+                            <div style="margin-top:15px;">
+
+                                <button type="submit" class="btn btn-primary">บันทึก</button>
+                                <a class="btn btn-info pull-right" onclick="fnModalAddEdu()"><i class="bx bx-plus"></i>เพิ่ม</a>
+
+                                <script>
+                                    function fnModalAddEdu(){
+                                    $("#modalAddEdu").modal('show');
+                                    }
+                                </script>
+                            </div>
+                        </form>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="container py-5">
+
+                <div class="card">
+                    <div class="card-header bg-info text-white">
+                        <h4 class="text-uppercase text-center">Relocation Data </></h4>
+                    </div>
+                    <div class="card-body">
+                        <form action="@Url.Action("EditRelot")">
+
+                            <input type="hidden" asp-for="citizenNo" />
+                            @for (int i = 0; i < Model.relocationInfos.Count; i++)
+                            {
+                                @*  <div class="row">
+                            @Html.LabelFor(m => Model.educationInfos[i].eduLevel)
+                            @Html.TextBoxFor(m => Model.educationInfos[i].eduLevel)
+                            </div>
+                            <div class="row">
+                            @Html.LabelFor(m => Model.educationInfos[i].eduInstitution)
+                            @Html.TextBoxFor(m => Model.educationInfos[i].eduInstitution)
+                            </div> *@
+                                @if (i > 0)
+
+                                {
+                                    <hr />
+                                }
+                                <div class="form-row">
+                                    <div class="col-md-6">
+                                        <label>@(i + 1) : จากปี</label>
+                                        @Html.TextBoxFor(m => Model.relocationInfos[i].reLoSinceYear, new { @class = "form-control" })
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label>ถึงปี</label>
+                                        @Html.TextBoxFor(m => Model.relocationInfos[i].reLoToYear, new { @class = "form-control" })
+                                    </div>
+
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-md-6">
+                                        <label>จังหวัด</label>
+                                        @Html.TextBoxFor(m => Model.relocationInfos[i].reLoProvice, new { @class = "form-control" })
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label>อำเภอ</label>
+                                        @Html.TextBoxFor(m => Model.relocationInfos[i].reLoDistrict, new { @class = "form-control" })
+                                    </div>
+
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-md-3">
+                                        <label>ตำบล</label>
+                                        @Html.TextBoxFor(m => Model.relocationInfos[i].reLoSubDistrict, new { @class = "form-control" })
+                                    </div>
+                                    <div class="col-md-9">
+                                        <label>หมู่บ้าน</label>
+                                        @Html.TextBoxFor(m => Model.relocationInfos[i].reLoHouseAddress, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            }
+                            @*    @foreach (var itm in Model.educationInfos)
+                            {
+                            <div class="form-row">
+                            <div class="col-md-6">
+                            <label>1 : ระดับการศึกษา</label>
+                            <input type="text" asp-for="@itm.eduLevel"
+                            placeholder="CitizenNo" class="form-control" />
+                            </div>
+                            <div class="col-md-6">
+                            <label>สถานศึกษา</label>
+                            <input type="text" asp-for="@itm.eduInstitution" placeholder="CitizenNo" class="form-control" />
+                            </div>
+
+                            </div>
+                            <div class="form-row">
+                            <div class="col-md-6">
+                            <label>จากปี</label>
+                            <input type="text" asp-for="@itm.eduSinceYear" placeholder="Last Name" class="form-control" />
+                            </div>
+                            <div class="col-md-6">
+                            <label>ถึงปี</label>
+                            <input type="text" asp-for="@itm.eduToYear" placeholder="First Name" class="form-control" />
+                            </div>
+
+                            </div>
+                            <div class="form-row">
+                            <div class="col-md-3">
+                            <label>เกรดเฉลี่ย</label>
+                            <input type="text" asp-for="@itm.eduGPA" class="form-control" />
+                            </div>
+                            <div class="col-md-9">
+                            <label>ความสามารถพิเศษ</label>
+                            <input type="text" asp-for="@itm.eduExcellent" class="form-control" />
+                            </div>
+                            </div>
+                            }
+                            *@
+                            <div style="margin-top:15px;">
+
+                                <button type="submit" class="btn btn-primary">บันทึก</button>
+                                <a class="btn btn-info pull-right" onclick="fnmodalAddRelocate()"><i class="bx bx-plus"></i>เพิ่ม</a>
+
+                                <script>
+                                    function fnmodalAddRelocate() {
+                                        $("#modalAddRelocate").modal('show');
+                                    }
+                                </script>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="container py-5" style="display:none">
+
+                <div class="card">
+                    <div class="card-header bg-info text-white">
+                        <h4 class="text-uppercase text-center">ความสามารถพิเศษ</h4>
+                    </div>
+                    <div class="card-body">
+                        <form action="@Url.Action("")">
+                            <div class="form-row">
+                                <div class="col-md-6">
+                                    <label>1 : ระดับการศึกษา</label>
+                                    <input type="text"  id="txtGrad2" placeholder="CitizenNo" class="form-control" />
+                                </div>
+                                <div class="col-md-6">
+                                    <label>สถานศึกษา</label>
+                                    <input type="text"  placeholder="CitizenNo" class="form-control" />
+                                </div>
+
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-6">
+                                    <label>จากปี</label>
+                                    <input type="text" placeholder="Last Name" class="form-control" />
+                                </div>
+                                <div class="col-md-6">
+                                    <label>ถึงปี</label>
+                                    <input type="text" placeholder="First Name" class="form-control" />
+                                </div>
+
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-3">
+                                    <label>เกรดเฉลี่ย</label>
+                                    <input type="text"   class="form-control" />
+                                </div>
+                                <div class="col-md-9">
+                                    <label>ความสามารถพิเศษ</label>
+                                    <input type="text"   class="form-control" />
+                                </div>
+                            </div>
+
+                            <div style="margin-top:15px;">
+
+                                <button type="submit" class="btn btn-primary rounded-0">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="card-body">
+                        <form action="@Url.Action("edit/education")">
+                            <div class="form-row">
+                                <div class="col-md-6">
+                                    <label>2 : ระดับการศึกษา</label>
+                                    <input type="text"   placeholder="CitizenNo" class="form-control" />
+                                </div>
+                                <div class="col-md-6">
+                                    <label>สถานศึกษา</label>
+                                    <input type="text"   placeholder="CitizenNo" class="form-control" />
+                                </div>
+
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-6">
+                                    <label>จากปี</label>
+                                    <input type="text"   placeholder="Last Name" class="form-control" />
+                                </div>
+                                <div class="col-md-6">
+                                    <label>ถึงปี</label>
+                                    <input type="text"  placeholder="First Name" class="form-control" />
+                                </div>
+
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-3">
+                                    <label>เกรดเฉลี่ย</label>
+                                    <input type="text"   class="form-control" />
+                                </div>
+                                <div class="col-md-9">
+                                    <label>ความสามารถพิเศษ</label>
+                                    <input type="text"  class="form-control" />
+                                </div>
+
+                            </div>
+
+                            <div style="margin-top:15px;">
+
+                                <button type="submit" class="btn btn-primary rounded-0">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="card-body">
+                        <form action="@Url.Action("edit/education")">
+                            <div class="form-row">
+                                <div class="col-md-6">
+                                    <label>3 : ระดับการศึกษา</label>
+                                    <input type="text" placeholder="CitizenNo" class="form-control" />
+                                </div>
+                                <div class="col-md-6">
+                                    <label>สถานศึกษา</label>
+                                    <input type="text" placeholder="CitizenNo" class="form-control" />
+                                </div>
+
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-6">
+                                    <label>จากปี</label>
+                                    <input type="text" placeholder="Last Name" class="form-control" />
+                                </div>
+                                <div class="col-md-6">
+                                    <label>ถึงปี</label>
+                                    <input type="text" placeholder="First Name" class="form-control" />
+                                </div>
+
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-3">
+                                    <label>เกรดเฉลี่ย</label>
+                                    <input type="text" class="form-control" />
+                                </div>
+                                <div class="col-md-9">
+                                    <label>ความสามารถพิเศษ</label>
+                                    <input type="text" class="form-control" />
+                                </div>
+
+                            </div>
+
+                            <div style="margin-top:15px;">
+
+                                <button type="submit" class="btn btn-primary rounded-0">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+</div>
+    <div class="row">
+        
+    </div>
+
+    
+    <div class="modal fade" id="modalAddRelocate" tabindex="-1" role="dialog" aria-labelledby="popupMessageLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="width:800px">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="popupMessageLabel">Update Personal Info</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                @*  @model SMCTPortal.Model.SMPeople.tbPeople *@
+
+
+                <form action="@Url.Action("AddRelot")">
+                    <div class="modal-body" style="text-align:center;">
+
+                        <div class="container">
+
+   <input type="hidden" asp-for="citizenNo" />
+                             
+                               
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>จังหวัด</label>
+                                    <input type="text" name="reLoProvice" />
+                                    </div>
+                                  
+
+                                </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>ถึงปี</label>
+                                    <input type="text" name="reLoSinceYear" />
+                                </div>
+                                
+                                
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>ถึงปี</label>
+                                    <input type="text" name="reLoToYear" />
+                                </div>
+                               
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-info">ยืนยัน</button>
+                        @*     <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
+                        *@
+                    </div>
+                </form>
+            </div>
+        </div>
+        </div>
+    <div class="modal fade" id="modalAddEdu" tabindex="-1" role="dialog" aria-labelledby="popupMessageLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="width:800px">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="popupMessageLabel">Update Personal Info</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                @*  @model SMCTPortal.Model.SMPeople.tbPeople *@
+
+
+                <form action="@Url.Action("AddEdu")">
+                    <div class="modal-body" style="text-align:center;">
+
+                        <div class="container">
+
+   <input type="hidden" asp-for="citizenNo" />
+                             
+                               
+                                <div class="form-row">
+                                    <div class="col-md-6">
+                                        <label>1 : ระดับการศึกษา</label>
+                                    <input type="text" name="eduLevel" />
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label>สถานศึกษา-หลักสูตร</label>
+                                    <input type="text" name="eduInstitution" />
+                                    </div>
+
+                                </div>
+                       
+
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-info">ยืนยัน</button>
+                        @*     <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
+                        *@
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        console.log('try to display back button');
+        $("#dvBack").css('display', 'inline');
+    </script>
+</body>
+

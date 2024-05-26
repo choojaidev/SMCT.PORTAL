@@ -1,0 +1,110 @@
+﻿.-vertical {
+    flex-direction: column;
+}
+
+.main-header.-banner {
+    position: relative;
+    background: linear-gradient(90.44deg, #139D8D 12.64%, #36EB7E 143.55%);
+    min-height: var(--mobile-height, 0);
+}
+
+    .main-header.-banner .bgimg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .main-header.-banner .s-container {
+        z-index: 2;
+    }
+
+.site-content {
+    background-image: url( ../img/main-bg-1.webp ), url( ../img/main-bg-2.webp );
+    background-repeat: no-repeat, no-repeat;
+    background-position: top left, top right;
+}
+
+.site-main .seed-social {
+    text-align: center;
+}
+
+    .site-main .seed-social .text {
+        display: none;
+    }
+
+.seed-social .email a {
+    background-color: #B92F2C;
+}
+
+.top-z-index {
+    position: relative;
+    z-index: 100;
+}
+
+.main-header .bg.-blank {
+    -webkit-filter: none;
+    filter: none;
+    opacity: 1;
+    background: none;
+    color: var(--s-bg)
+}
+
+@media (min-width: 768px) {
+    .main-header.-banner {
+        min-height: var(--tablet-height, 0);
+    }
+}
+
+@media (min-width: 992px) {
+    .main-header.-banner {
+        min-height: var(--desktop-height, 0);
+    }
+
+    .s-grid.-d3 {
+        grid-template-columns: repeat(6, 1fr);
+    }
+
+    .single-related .s-grid.-d3 .content-item,
+    .archive .s-grid.-d3 .content-item {
+        grid-column: span 2;
+    }
+
+        .archive .s-grid.-d3 .content-item:nth-child(1),
+        .archive .s-grid.-d3 .content-item:nth-child(2) {
+            grid-column: span 3;
+        }
+}
+
+.navigation.pagination {
+    display: flex;
+    justify-content: center;
+    margin: var(--s-space) 0;
+}
+
+    .navigation.pagination .nav-links {
+        display: flex;
+        gap: 8px;
+    }
+
+        .navigation.pagination .nav-links .page-numbers {
+            padding: 4px 12px;
+        }
+
+            .navigation.pagination .nav-links .page-numbers:hover {
+                color: black;
+            }
+
+            .navigation.pagination .nav-links .page-numbers.current {
+                color: var(--s-bg);
+                background-color: var(--s-accent);
+                border-radius: 6px;
+            }
+
+.breadcrumbs {
+    font-family: 'Anuphan', sans-serif;
+}
