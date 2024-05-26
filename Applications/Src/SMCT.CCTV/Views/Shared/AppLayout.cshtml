@@ -1,0 +1,285 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <link href="~/css/ptth/style.css" rel="stylesheet" />
+    <link href="~/css/ptth/stylenav.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="tdc-header-wrap ">
+        <!--
+        Header style multipurpose 1
+        -->
+   <div class="td-header-wrap tdm-header tdm-header-style-1 ">
+
+
+            <div class="td-header-menu-wrap-full td-container-wrap ">
+                <div class="td-header-menu-wrap td-header-gradient td-header-menu-no-search">
+                    <div class="td-container td-header-row td-header-main-menu" style="text-align: center;">
+                        <div class="tdm-menu-btns-socials">
+                            <div class="header-search-wrap">
+                                <div class="profile-details" >
+                                    @*  <i class='bx bx-log-out' id="log_out"></i> *@
+                                    <div class="name_job">
+                                        <div class="name" style="display:none">@Context.User.Identity.Name</div>
+                                        <div class="user-name" style="padding:12px;display: inline-flex;">
+                                            @ViewBag.UserName
+                                            @if (!Context.User.Identity.IsAuthenticated)
+                                            {
+                                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Secure" style="padding:12px;display: inline-flex;">
+                                                    <i class='bx bx-log-in' id="log_in"></i>
+                                                    Login
+                                                </a>
+                                            }
+                                            else
+                                            {
+                                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Logout" style=" display: inline-flex;">
+                                                    <i class='bx bx-log-out' id="log_out" style="padding:5px;"></i>
+                                                    Logout
+                                                </a>
+                                            }
+
+                                        </div>
+                                        @* <div class="job">sso</div> *@
+                                   
+                                    </div>
+                                    
+                                </div>
+                                <div class="td-search-btns-wrap" style="display:none">
+                                    <a id="td-header-search-button" href="#" aria-label="Search" role="button" class="dropdown-toggle " data-toggle="dropdown"><i class="td-icon-search"></i></a>
+                                    <a id="td-header-search-button-mob" href="#" role="button" aria-label="Search" class="dropdown-toggle " data-toggle="dropdown"><i class="td-icon-search"></i></a>
+                                </div>
+
+                                <div class="td-drop-down-search" style="display:none">
+                                    <form method="get" class="td-search-form"
+                                          action="">
+                                        <div role="search" class="td-head-form-search-wrap">
+                                            <input id="td-header-search" type="text" value="" name="s" autocomplete="off"><input class="wpb_button wpb_btn-inverse btn" type="submit" id="td-header-search-top" value="Search">
+                                        </div>
+                                    </form>
+                                    <div id="td-aj-search"></div>
+                                    
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                        <div id="td-header-menu" role="navigation">
+                            <div id="td-top-mobile-toggle"><a href="#" aria-label="mobile-toggle"><i class="td-icon-font td-icon-mobile"></i></a></div>
+                            <div class="td-main-menu-logo td-logo-in-menu td-logo-sticky">
+                                <a class="td-main-logo" href="#">
+                                    <img class="td-retina-data td-retina-version"
+                                         data-retina="#"
+                                         src="/images/smartcity/smctlogo.jpg"
+                                         alt="" title="" style="border-radius:5px;height:25px;width:25px;">
+                                    <span class="td-visual-hidden">SmartCityClick Thailand</span>
+                                </a>
+                            </div>
+                            <div class="menu-main-menu-container">
+                                <ul id="menu-main-menu-1" class="sf-menu sf-js-enabled">
+                                    <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-first td-menu-item td-normal-menu menu-item-1413">
+                                      
+                                        <a href="@Url.ActionLink("index","portal")">  <i class='bx bxs-home-circle'></i>Home</a>
+                                    </li>
+                                    <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-first td-menu-item td-normal-menu menu-item-1413">
+                                        <a href="@Url.ActionLink("index","backgroundproject")"><i class='bx bxs-pyramid'></i>ความเป็นมาโครงการ</a>
+                                    </li>
+                                    <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-first td-menu-item td-normal-menu menu-item-1413">
+                                        <a href="#serviceMenu"><i class='bx bxs-building-house'></i>SmartCity 7 ด้าน</a>
+                                    </li>
+                                    <li class="profile" style="margin-left:200px;">
+                                      
+                                      
+
+                                        
+
+                                    </li>
+                                    @*       <li class="menu-item menu-item-type-taxonomy menu-item-object-category td-menu-item td-mega-menu menu-item-3486">
+                                    <a href="https://www.codingnepalweb.com/category/blog/" class="sf-with-ul">Blog<i class="td-icon-menu-down"></i></a>
+                                    <ul class="sub-menu" style="display: none; float: none; width: 20em;">
+                                    <li id="menu-item-0" class="menu-item-0" style="white-space: normal; float: left; width: 100%;">
+                                    <div class="td-container-border">
+                                    <div class="td-mega-grid">
+                                    <div class="td_block_wrap td_block_mega_menu tdi_1 td-no-subcats td_with_ajax_pagination td-pb-border-top td_block_template_1 td_ajax_preloading_preload" data-td-block-uid="tdi_1">
+                                    <script>
+                                    var block_tdi_1 = new tdBlock();
+                                    block_tdi_1.id = "tdi_1";
+                                    block_tdi_1.atts = '{"limit":"5","td_column_number":3,"ajax_pagination":"next_prev","category_id":"1322","show_child_cat":30,"td_ajax_filter_type":"td_category_ids_filter","td_ajax_preloading":"preload","block_type":"td_block_mega_menu","block_template_id":"","header_color":"","ajax_pagination_infinite_stop":"","offset":"","td_filter_default_txt":"","td_ajax_filter_ids":"","el_class":"","color_preset":"","ajax_pagination_next_prev_swipe":"","border_top":"","css":"","tdc_css":"","class":"tdi_1","tdc_css_class":"tdi_1","tdc_css_class_style":"tdi_1_rand_style"}';
+                                    block_tdi_1.td_column_number = "3";
+                                    block_tdi_1.block_type = "td_block_mega_menu";
+                                    block_tdi_1.post_count = "5";
+                                    block_tdi_1.found_posts = "11";
+                                    block_tdi_1.header_color = "";
+                                    block_tdi_1.ajax_pagination_infinite_stop = "";
+                                    block_tdi_1.max_num_pages = "3";
+                                    tdBlocksArray.push(block_tdi_1);
+                                    </script><div id="tdi_1" class="td_block_inner">
+                                    <div class="td-mega-row">
+                                    <div class="td-mega-span">
+                                    <div class="td_module_mega_menu td-animation-stack td_mod_mega_menu">
+                                    <div class="td-module-image">
+                                    <div class="td-module-thumb"><a href="https://www.codingnepalweb.com/best-javascript-games-for-beginners/" rel="bookmark" class="td-image-wrap " title="10 Easy JavaScript Games for Beginners with Source Code"><img class="entry-thumb td-animation-stack-type0-2" src="https://www.codingnepalweb.com/wp-content/uploads/2023/02/10-Easy-JavaScript-Games-for-Beginners-with-Source-Code-218x150.jpg" alt="10 Easy JavaScript Games for Beginners with Source Code" title="10 Easy JavaScript Games for Beginners with Source Code" data-type="image_tag" data-img-url="https://www.codingnepalweb.com/wp-content/uploads/2023/02/10-Easy-JavaScript-Games-for-Beginners-with-Source-Code-218x150.jpg" width="218" height="150"></a></div>
+                                    </div>
+
+                                    <div class="item-details">
+                                    <h3 class="entry-title td-module-title"><a href="https://www.codingnepalweb.com/best-javascript-games-for-beginners/" rel="bookmark" title="10 Easy JavaScript Games for Beginners with Source Code">10 Easy JavaScript Games for Beginners with Source Code</a></h3>
+                                    </div>
+                                    </div>
+                                    </div><div class="td-mega-span">
+                                    <div class="td_module_mega_menu td-animation-stack td_mod_mega_menu">
+                                    <div class="td-module-image">
+                                    <div class="td-module-thumb"><a href="https://www.codingnepalweb.com/10-javascript-projects-for-beginners/" rel="bookmark" class="td-image-wrap " title="Top 10 JavaScript Projects for Beginners with Source Code"><img class="entry-thumb td-animation-stack-type0-2" src="https://www.codingnepalweb.com/wp-content/uploads/2023/02/10-Best-JavaScript-Projects-with-Free-Source-Code-JavaScript-Projects-for-Beginners-218x150.png" alt="10 Best JavaScript Projects with Free Source Code JavaScript Projects for Beginners" title="Top 10 JavaScript Projects for Beginners with Source Code" data-type="image_tag" data-img-url="https://www.codingnepalweb.com/wp-content/uploads/2023/02/10-Best-JavaScript-Projects-with-Free-Source-Code-JavaScript-Projects-for-Beginners-218x150.png" width="218" height="150"></a></div>
+                                    </div>
+
+                                    <div class="item-details">
+                                    <h3 class="entry-title td-module-title"><a href="https://www.codingnepalweb.com/10-javascript-projects-for-beginners/" rel="bookmark" title="Top 10 JavaScript Projects for Beginners with Source Code">Top 10 JavaScript Projects for Beginners with Source Code</a></h3>
+                                    </div>
+                                    </div>
+                                    </div><div class="td-mega-span">
+                                    <div class="td_module_mega_menu td-animation-stack td_mod_mega_menu">
+                                    <div class="td-module-image">
+                                    <div class="td-module-thumb"><a href="https://www.codingnepalweb.com/10-profile-card-template-designs-html-css/" rel="bookmark" class="td-image-wrap " title="Top 10 Profile Card Template Designs in HTML &amp; CSS"><img class="entry-thumb td-animation-stack-type0-2" src="https://www.codingnepalweb.com/wp-content/uploads/2022/12/Top-2010-20Profile-20Card-20Template-20Designs-20in-20HTML-20-amp-20CSS-218x150.jpg" alt="Top 10 Profile Card Template Designs in HTML &amp; CSS" title="Top 10 Profile Card Template Designs in HTML &amp; CSS" data-type="image_tag" data-img-url="https://www.codingnepalweb.com/wp-content/uploads/2022/12/Top-2010-20Profile-20Card-20Template-20Designs-20in-20HTML-20-amp-20CSS-218x150.jpg" width="218" height="150"></a></div>
+                                    </div>
+
+                                    <div class="item-details">
+                                    <h3 class="entry-title td-module-title"><a href="https://www.codingnepalweb.com/10-profile-card-template-designs-html-css/" rel="bookmark" title="Top 10 Profile Card Template Designs in HTML &amp; CSS">Top 10 Profile Card Template Designs in HTML &amp; CSS</a></h3>
+                                    </div>
+                                    </div>
+                                    </div><div class="td-mega-span">
+                                    <div class="td_module_mega_menu td-animation-stack td_mod_mega_menu">
+                                    <div class="td-module-image">
+                                    <div class="td-module-thumb"><a href="https://www.codingnepalweb.com/free-website-templates-designs-source-code/" rel="bookmark" class="td-image-wrap " title="10+ Website Templates Design in HTML CSS and JavaScript"><img class="entry-thumb td-animation-stack-type0-2" src="https://www.codingnepalweb.com/wp-content/uploads/2023/04/vai-design-coffee-2-218x150.jpg" alt="Top 10 Website Templates Design in HTML CSS &amp; JavaScript" title="10+ Website Templates Design in HTML CSS and JavaScript" data-type="image_tag" data-img-url="https://www.codingnepalweb.com/wp-content/uploads/2023/04/vai-design-coffee-2-218x150.jpg" width="218" height="150"></a></div>
+                                    </div>
+
+                                    <div class="item-details">
+                                    <h3 class="entry-title td-module-title"><a href="https://www.codingnepalweb.com/free-website-templates-designs-source-code/" rel="bookmark" title="10+ Website Templates Design in HTML CSS and JavaScript">10+ Website Templates Design in HTML CSS and JavaScript</a></h3>
+                                    </div>
+                                    </div>
+                                    </div><div class="td-mega-span">
+                                    <div class="td_module_mega_menu td-animation-stack td_mod_mega_menu">
+                                    <div class="td-module-image">
+                                    <div class="td-module-thumb"><a href="https://www.codingnepalweb.com/free-sidebar-menu-templates/" rel="bookmark" class="td-image-wrap " title="Top 15 Sidebar Menu Templates in HTML CSS &amp; JavaScript"><img class="entry-thumb td-animation-stack-type0-2" src="https://www.codingnepalweb.com/wp-content/uploads/2022/12/Free20sidebar20templates20with20source20code-218x150.jpg" alt="Top 5 Sidebar Menu Templates in HTML CSS &amp; JavaScript" title="Top 15 Sidebar Menu Templates in HTML CSS &amp; JavaScript" data-type="image_tag" data-img-url="https://www.codingnepalweb.com/wp-content/uploads/2022/12/Free20sidebar20templates20with20source20code-218x150.jpg" width="218" height="150"></a></div>
+                                    </div>
+
+                                    <div class="item-details">
+                                    <h3 class="entry-title td-module-title"><a href="https://www.codingnepalweb.com/free-sidebar-menu-templates/" rel="bookmark" title="Top 15 Sidebar Menu Templates in HTML CSS &amp; JavaScript">Top 15 Sidebar Menu Templates in HTML CSS &amp; JavaScript</a></h3>
+                                    </div>
+                                    </div>
+                                    </div>
+                                    </div>
+                                    </div><div class="td-next-prev-wrap"><a href="#" class="td-ajax-prev-page ajax-page-disabled" aria-label="prev-page" id="prev-page-tdi_1" data-td_block_id="tdi_1"><i class="td-next-prev-icon td-icon-font td-icon-menu-left"></i></a><a href="#" class="td-ajax-next-page" aria-label="next-page" id="next-page-tdi_1" data-td_block_id="tdi_1"><i class="td-next-prev-icon td-icon-font td-icon-menu-right"></i></a></div><div class="clearfix"></div>
+                                    </div> <!-- ./block1 -->
+                                    </div>
+                                    </div>
+                                    </li>
+                                    </ul>
+                                    </li>
+                                    <li class="menu-item menu-item-type-taxonomy menu-item-object-category current-menu-ancestor current-menu-parent menu-item-has-children td-menu-item td-normal-menu menu-item-1412">
+                                    <a href="https://www.codingnepalweb.com/category/html-and-css/" class="sf-with-ul">HTML &amp; CSS<i class="td-icon-menu-down"></i></a>
+                                    <ul class="sub-menu" style="float: none; width: 13.2143em; display: none;">
+                                    <li class="menu-item menu-item-type-taxonomy menu-item-object-category td-menu-item td-normal-menu menu-item-3342" style="white-space: normal; float: left; width: 100%;"><a href="https://www.codingnepalweb.com/category/login-form/" style="float: none; width: auto;">Login Forms</a></li>
+                                    <li class="menu-item menu-item-type-taxonomy menu-item-object-category td-menu-item td-normal-menu menu-item-5084" style="white-space: normal; float: left; width: 100%;"><a href="https://www.codingnepalweb.com/category/website-design/" style="float: none; width: auto;">Website Designs</a></li>
+                                    <li class="menu-item menu-item-type-taxonomy menu-item-object-category td-menu-item td-normal-menu menu-item-1414" style="white-space: normal; float: left; width: 100%;"><a href="https://www.codingnepalweb.com/category/navigation-bar/" style="float: none; width: auto;">Navigation Bars</a></li>
+                                    <li class="menu-item menu-item-type-taxonomy menu-item-object-category current-menu-item td-menu-item td-normal-menu menu-item-5082" style="white-space: normal; float: left; width: 100%;"><a href="https://www.codingnepalweb.com/category/sidebar-menu/" style="float: none; width: auto;">Sidebar Menu</a></li>
+                                    <li class="menu-item menu-item-type-taxonomy menu-item-object-category td-menu-item td-normal-menu menu-item-1415" style="white-space: normal; float: left; width: 100%;"><a href="https://www.codingnepalweb.com/category/card-design/" style="float: none; width: auto;">Card Designs</a></li>
+                                    <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children td-menu-item td-normal-menu menu-item-1422" style="white-space: normal; float: left; width: 100%;">
+                                    <a href="#" class="sf-with-ul" style="float: none; width: auto;">More<i class="td-icon-menu-down"></i></a>
+                                    <ul class="sub-menu" style="left: 100%; float: none; width: 16.2857em; display: none;">
+                                    <li class="menu-item menu-item-type-taxonomy menu-item-object-category td-menu-item td-normal-menu menu-item-1419" style="white-space: normal; float: left; width: 100%;"><a href="https://www.codingnepalweb.com/category/css-buttons/" style="float: none; width: auto;">CSS Buttons</a></li>
+                                    <li class="menu-item menu-item-type-taxonomy menu-item-object-category td-menu-item td-normal-menu menu-item-1420" style="white-space: normal; float: left; width: 100%;"><a href="https://www.codingnepalweb.com/category/glowing-effect/" style="float: none; width: auto;">Glowing Effects</a></li>
+                                    <li class="menu-item menu-item-type-taxonomy menu-item-object-category td-menu-item td-normal-menu menu-item-1417" style="white-space: normal; float: left; width: 100%;"><a href="https://www.codingnepalweb.com/category/social-media-buttons/" style="float: none; width: auto;">Social Media Buttons</a></li>
+                                    <li class="menu-item menu-item-type-taxonomy menu-item-object-category td-menu-item td-normal-menu menu-item-1418" style="white-space: normal; float: left; width: 100%;"><a href="https://www.codingnepalweb.com/category/preloader-or-loader/" style="float: none; width: auto;">Preloader or Loaders</a></li>
+                                    <li class="menu-item menu-item-type-taxonomy menu-item-object-category td-menu-item td-normal-menu menu-item-1421" style="white-space: normal; float: left; width: 100%;"><a href="https://www.codingnepalweb.com/category/neumorphism-design/" style="float: none; width: auto;">Neumorphism Designs</a></li>
+                                    </ul>
+                                    </li>
+                                    </ul>
+                                    </li>
+                                    <li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children td-menu-item td-normal-menu menu-item-1423">
+                                    <a href="https://www.codingnepalweb.com/category/javascript/" class="sf-with-ul">JavaScript<i class="td-icon-menu-down"></i></a>
+                                    <ul class="sub-menu" style="float: none; width: 13.6429em; display: none;">
+                                    <li class="menu-item menu-item-type-taxonomy menu-item-object-category td-menu-item td-normal-menu menu-item-5085" style="white-space: normal; float: left; width: 100%;"><a href="https://www.codingnepalweb.com/category/form-validation/" style="float: none; width: auto;">Form Validation</a></li>
+                                    <li class="menu-item menu-item-type-taxonomy menu-item-object-category td-menu-item td-normal-menu menu-item-3580" style="white-space: normal; float: left; width: 100%;"><a href="https://www.codingnepalweb.com/category/image-slider/" style="float: none; width: auto;">Image Sliders</a></li>
+                                    <li class="menu-item menu-item-type-taxonomy menu-item-object-category td-menu-item td-normal-menu menu-item-3908" style="white-space: normal; float: left; width: 100%;"><a href="https://www.codingnepalweb.com/category/api-projects/" style="float: none; width: auto;">API Projects</a></li>
+                                    <li class="menu-item menu-item-type-taxonomy menu-item-object-category td-menu-item td-normal-menu menu-item-3579" style="white-space: normal; float: left; width: 100%;"><a href="https://www.codingnepalweb.com/category/javascript-games/" style="float: none; width: auto;">JavaScript Games</a></li>
+                                    <li class="menu-item menu-item-type-taxonomy menu-item-object-category td-menu-item td-normal-menu menu-item-3578" style="white-space: normal; float: left; width: 100%;"><a href="https://www.codingnepalweb.com/category/canvas-projects/" style="float: none; width: auto;">Canvas Projects</a></li>
+                                    </ul>
+                                    </li>
+                                    <li class="menu-item menu-item-type-taxonomy menu-item-object-category td-menu-item td-normal-menu menu-item-1424"><a href="https://www.codingnepalweb.com/category/php/">PHP</a></li>
+                                    <li class="menu-item menu-item-type-post_type menu-item-object-page td-menu-item td-normal-menu menu-item-3840"><a href="https://www.codingnepalweb.com/contact-us/">Contact us</a></li>
+                                    *@
+                                </ul>
+                                
+                            </div>
+                        </div>
+
+                    </div>
+                     
+                    
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <script>
+        // Selecting the sidebar and buttons
+        const sidebar = document.querySelector(".sidebar");
+        const sidebarOpenBtn = document.querySelector("#sidebar-open");
+        const sidebarCloseBtn = document.querySelector("#sidebar-close");
+        const sidebarLockBtn = document.querySelector("#lock-icon");
+
+        // Function to toggle the lock state of the sidebar
+        const toggleLock = () => {
+            sidebar.classList.toggle("locked");
+            // If the sidebar is not locked
+            if (!sidebar.classList.contains("locked")) {
+                sidebar.classList.add("hoverable");
+                sidebarLockBtn.classList.replace("bx-lock-alt", "bx-lock-open-alt");
+            } else {
+                sidebar.classList.remove("hoverable");
+                sidebarLockBtn.classList.replace("bx-lock-open-alt", "bx-lock-alt");
+            }
+        };
+
+        // Function to hide the sidebar when the mouse leaves
+        const hideSidebar = () => {
+            if (sidebar.classList.contains("hoverable")) {
+                sidebar.classList.add("close");
+            }
+        };
+
+        // Function to show the sidebar when the mouse enter
+        const showSidebar = () => {
+            if (sidebar.classList.contains("hoverable")) {
+                sidebar.classList.remove("close");
+            }
+        };
+
+        // Function to show and hide the sidebar
+        const toggleSidebar = () => {
+            sidebar.classList.toggle("close");
+        };
+
+        // If the window width is less than 800px, close the sidebar and remove hoverability and lock
+        if (window.innerWidth < 800) {
+            sidebar.classList.add("close");
+            sidebar.classList.remove("locked");
+            sidebar.classList.remove("hoverable");
+        }
+
+        // Adding event listeners to buttons and sidebar for the corresponding actions
+        sidebarLockBtn.addEventListener("click", toggleLock);
+        sidebar.addEventListener("mouseleave", hideSidebar);
+        sidebar.addEventListener("mouseenter", showSidebar);
+        sidebarOpenBtn.addEventListener("click", toggleSidebar);
+        sidebarCloseBtn.addEventListener("click", toggleSidebar);
+    </script>
+
+    <div>
+        @RenderBody()
+    </div>
+</body>
+</html>

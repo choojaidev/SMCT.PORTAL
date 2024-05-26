@@ -1,0 +1,74 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <UserSecretsId>fe28de52-854d-4c0f-a6b5-20f8dea1f70d</UserSecretsId>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+      <WarningLevel>0</WarningLevel>
+      <WarningsAsErrors>$(WarningsAsErrors);NU1605;NU1103</WarningsAsErrors>
+      <NoWarn>1701;1702;NU1103</NoWarn>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+      <WarningLevel>0</WarningLevel>
+      <WarningsAsErrors>$(WarningsAsErrors);NU1605;NU1103</WarningsAsErrors>
+      <NoWarn>1701;1702;NU1103</NoWarn>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Compile Remove="Database\**" />
+      <Content Remove="Database\**" />
+      <EmbeddedResource Remove="Database\**" />
+      <None Remove="Database\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Remove="Controllers\HomeWeatherController.cs" />
+      <Compile Remove="Model\SMTCitizen\jsnCitizens.cs" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="HtmlAgilityPack" Version="1.11.59" />
+      <PackageReference Include="IdentityModel" Version="6.2.0" />
+      <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="8.0.1" />
+      <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.2" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.2" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.2">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
+      <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.2" />
+      <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="7.2.0" />
+      <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.2" />
+      <PackageReference Include="MongoDB.Driver" Version="2.24.0" />
+      <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+      <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.2.0" />
+    </ItemGroup>
+
+
+    <ItemGroup>
+      <Folder Include="wwwroot\css\mobile\" />
+      <Folder Include="wwwroot\images\peoples\" />
+    </ItemGroup>
+
+
+    <ItemGroup>
+      <Reference Include="Constants">
+        <HintPath>..\Packages\Constants.dll</HintPath>
+      </Reference>
+      <Reference Include="SMCTPortal.DataAccess">
+        <HintPath>..\Packages\SMCTPortal.DataAccess.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
+
+    <ItemGroup>
+      <Content Update="wwwroot\css\MyCV\jquery.mCustomScrollbar.min.css">
+        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      </Content>
+    </ItemGroup>
+
+</Project>

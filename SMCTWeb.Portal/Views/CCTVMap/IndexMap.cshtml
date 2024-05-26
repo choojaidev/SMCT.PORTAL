@@ -1,0 +1,79 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Map with Button</title>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBp_HiG7jWzR1DJmqs_AsK0tdC8fWJeiDU&callback=initMap" async defer></script>
+</head>
+<body>
+
+    <!-- The map container -->
+    <div id="googleMap" style="height: 800px;"></div>
+
+    <script>
+        // Initialize the map
+        function initMap() {
+            var map = new google.maps.Map(document.getElementById('googleMap'), {
+                center: { lat: 9.12187562760635, lng: 99.34000704358579 },
+                zoom: 14
+            });
+
+            
+            // Create a button and add it to the map
+            var controlPosition1 = new google.maps.LatLng(9.12187562760635, 99.34000704358579);
+            var cam1 = document.createElement("button");
+            var buttonDiv1 = document.createElement('div');
+            buttonDiv1.appendChild(cam1)
+            cam1.innerHTML = "CCTV1";
+            map.controls[google.maps.ControlPosition.TOP_LEFT].push(buttonDiv1);
+         //   map.controls[google.maps.ControlPosition.TOP_LEFT].setAt(0,controlPosition1);
+            buttonDiv1.style.position = 'absolute';
+            buttonDiv1.style.left = '10px';
+            buttonDiv1.style.top = '100px';
+
+            var buttonDiv = document.createElement('div');
+            var zoomInButton = document.createElement('button');
+            zoomInButton.innerHTML = 'Zoom In';
+            buttonDiv.appendChild(zoomInButton);
+
+            // Add the button to the map
+          //  map.controls[google.maps.ControlPosition.TOP_LEFT].push(buttonDiv);
+
+            // Add a click event to the button
+            cam1.addEventListener('click', function () {
+                alert('test');
+                window.open('http://61.19.75.125:8554/T001', '_blank');
+                //  map.setZoom(map.getZoom() + 1);
+            });
+
+            ///
+            // const marker = new google.maps.marker.AdvancedMarkerElement({
+            //     position: myLatlng,
+            //     map,
+            //     title: "Click to zoom",
+            // });
+            // marker.addListener("click", () => {
+            //     alert('test')
+            //     //map.setZoom(8);
+            //     //map.setCenter(marker.position);
+            // });
+        }
+    </script>
+
+</body>
+</html>
+
+ 
+
+ 
+ 

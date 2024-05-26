@@ -1,1 +1,1 @@
-# SMCT.PORTAL
+# SMCT
