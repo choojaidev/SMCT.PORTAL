@@ -3,8 +3,8 @@
     "Host": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "https://localhost:44302/portal",
-      "applicationUrl": "https://localhost:44302",
+      "launchUrl": "https://localhost:44303/CCTV",
+      "applicationUrl": "https://localhost:44303",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

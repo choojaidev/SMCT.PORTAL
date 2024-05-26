@@ -16,14 +16,14 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore.SqlServer;
-using SMCTPortal.Services;
+
 //using SMCTPortal.DataAccess.Settings;
 //using SMCTPortal.DataAccess.Repositories;
 using Microsoft.Extensions.Options;
 //using SMCTPortal.DataAccess.Repositories.Interfaces;
 using MongoDB.Driver;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
-using SMCTPortal.Repository;
+
 using Amazon.Runtime.Internal.Endpoints.StandardLibrary;
 using Microsoft.AspNetCore.Hosting;
 namespace SMCTPortal
@@ -49,7 +49,7 @@ namespace SMCTPortal
 
 
             JwtSecurityTokenHandler.DefaultMapInboundClaims = false;
-            services.AddScoped<WebScrapingService>();
+       
 
             services.AddControllersWithViews();
 
@@ -78,7 +78,7 @@ namespace SMCTPortal
                 {
                     options.Authority = Constants.Authority;
                     //live id => SMCTPORTAL-Live : live => 2CuPN9Zn8Ipr8jsp1w9MlQ== ()
-                    options.ClientId = "SMCTPORTAL-DEV"; //weatherforcast-DEV SMCTPORTAL-DEV 
+                    options.ClientId = "SMCTPORTAL-CCTV-DEV"; //weatherforcast-DEV SMCTPORTAL-DEV 
                     options.ClientSecret = "secret";
 
                     // code flow + PKCE (PKCE is turned on by default)
@@ -116,25 +116,7 @@ namespace SMCTPortal
                     };
                 });
 
-            // add entity framework
-            services.AddDbContext<SMCTDbContext>(options =>
-        options.UseSqlServer(_configuration.GetConnectionString("DefaultConnection")).LogTo(Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Information));
-            string xx = _configuration.GetConnectionString("DefaultConnection");
-            //   services.AddSingleton(_configuration);
-
-
-            //Context for No SQL
-            //        services.AddDbContext<YourDbContext>(options =>
-            //options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
-         //   services.Configure<MongoDbSettings>(_configuration.GetSection(nameof(MongoDbSettings)));
-            // services.AddSingleton<IMongoDbSettings>(x => x.GetRequiredService<IOptions<MongoDbSettings>>().Value);
-            services.AddSingleton<IMongoClient>(new MongoClient("mongodb://localhost:27017/SMZT"));
-            services.AddScoped<MongoRepository>();
-
-            //// services.AddSingleton<IMongoClient>(new MongoClient("MongoConnection"));
-            //services.AddSingleton<MongoDBContext>();
-
-
+      
         }
 
         public void Configure(IApplicationBuilder app)

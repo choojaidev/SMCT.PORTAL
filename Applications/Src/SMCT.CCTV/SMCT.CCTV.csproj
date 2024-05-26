@@ -26,11 +26,14 @@
 
     <ItemGroup>
       <Compile Remove="Controllers\HomeWeatherController.cs" />
+      <Compile Remove="DataAccess\database.cs" />
       <Compile Remove="Model\SMTCitizen\jsnCitizens.cs" />
+      <Compile Remove="Repository\MongoRepository.cs" />
     </ItemGroup>
 
     <ItemGroup>
       <PackageReference Include="HtmlAgilityPack" Version="1.11.59" />
+      <PackageReference Include="IdentityModel" Version="6.2.0" />
       <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="8.0.1" />
       <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.2" />
       <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.2" />
@@ -48,18 +51,17 @@
 
 
     <ItemGroup>
+      <Folder Include="DataAccess\" />
+      <Folder Include="Repository\" />
       <Folder Include="wwwroot\css\mobile\" />
       <Folder Include="wwwroot\images\peoples\" />
     </ItemGroup>
 
 
     <ItemGroup>
-      <ProjectReference Include="..\Libs\Constants\Constants.csproj" />
-      <ProjectReference Include="..\Portal.DataAccess\SMCTPortal.DataAccess.csproj" />
-    </ItemGroup>
-
-
-    <ItemGroup>
+      <Reference Include="Constants">
+        <HintPath>..\..\..\Packages\Constants.dll</HintPath>
+      </Reference>
       <Reference Include="SMCTPortal.DataAccess">
         <HintPath>..\..\..\Portal.DataAccess\bin\Release\net8.0\SMCTPortal.DataAccess.dll</HintPath>
       </Reference>
