@@ -64,6 +64,8 @@
         }
 
         .button {
+            margin:5px;
+            padding:3px;
             width: 100px;
             height: 100px;
             border-radius: 16px;
@@ -251,11 +253,14 @@
  
     <div class="row" style=display:none>
         <div class="col-sm-4">
-            <div class="button" style="margin-right:120px;width:100%">
-                <a href="/CitizenInfo"> </a><img src="/images/peoples/busman.png" />
+            <div class="button">
+                <a href="/CitizenInfo"> </a><img src="/images/peoples/familys.png" />
                 <h5>แผนผังครอบครัว</h5>
             </div>
-            
+            <div class="button">
+                <a href="/"> </a><img src="/images/peoples/restrictions.png" />
+                <h5>ปกปิดข้อมูล</h5>
+            </div>
         </div>
         <div class="col-sm-4" style="display:none;">
             <div class="button" style="width:200px;">
@@ -315,12 +320,23 @@
             </div>
             </div> *@
             @* End organize chart *@
-
-            <div class="container py-5" id="perdata">
-                <div class="button" style="margin-right:120px;width:100%">
+            <div class="container row" style="display:inline-flex;margin-left:5%">
+                <div class="button">
                     <a href="/CitizenInfo"> </a><img src="/images/peoples/busman.png" />
                     <h5>แผนผังครอบครัว</h5>
                 </div>
+                <div class="button">
+                    <a href="/"> </a><img src="/images/peoples/restrictions.png" />
+                    <h5>ซ่อนข้อมูล</h5>
+                </div>
+                <div class="button">
+                    <a href="/"> </a><img src="/images/peoples/allowed.png" />
+                    <h5>เปิดเผยข้อมูล</h5>
+                </div>
+            </div>
+            <div class="container py-5" id="perdata">
+                
+               
                 <div class="card">
                     <div class="card-header bg-info text-white">
                         <h4 class="text-uppercase text-center">Smart People Data</h4>

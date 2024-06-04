@@ -1,0 +1,54 @@
+﻿@{
+	Layout = null;
+}
+
+
+ 
+<link href="~/css/mobimenu/style.css" rel="stylesheet" />
+<div class="wrapper" id="mobiWrapper" style="
+    margin-right: 15%;">
+	<div class="navbar" id="mobiNav">
+		<a href="#" class="navitem active" href="@Url.ActionLink("Index","Portal")" data-clr="#e4ecfa">
+			<div class="indicator"></div>
+			<div class="hoverindicator"></div>
+			<ion-icon name="home"></ion-icon>
+		</a>
+		<a href="#" class="navitem" href="@Url.ActionLink("Index","MyCV")" data-clr="#fff6cc">
+			<div class="indicator"></div>
+			<div class="hoverindicator"></div>
+			<ion-icon name="person"></ion-icon>
+		</a>
+		<div class="navsearch">
+			<input class="searchbox"></input>
+			<div class="searchicon" onclick="selectsearch()">
+				<ion-icon name="search"></ion-icon>
+			</div>
+		</div>
+		<a href="#" class="navitem" onclick="select(this)" data-clr="#f0e4fa">
+			<div class="indicator"></div>
+			<div class="hoverindicator"></div>
+			<ion-icon name="cog"></ion-icon>
+		</a>
+	</div>
+</div>
+
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+<script>
+function select(el) {
+	document.querySelector(".navsearch").classList.remove("active")
+	document.querySelector(".active").classList.remove("active")
+	
+	el.classList.add("active")
+	
+	document.body.style.setProperty('--activeclr', el.dataset.clr);
+}
+function selectsearch() {
+	console.log("select")
+	const el = document.querySelector(".navsearch")
+	el.classList.toggle("active")
+	if (el.classList.contains("active")) {
+		document.querySelector(".searchbox").focus()
+	}
+}
+</script>

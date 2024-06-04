@@ -140,10 +140,20 @@ box-shadow:  32px 32px 63px #bebebe,
                                         </div>
                                         <div style="margin-top:15px;">
 
-                                            <button type="submit" class="btn btn-primary rounded-1">บันทึก</button>
+                                            <button type="submit" onclick="return isCanEditCV()" class="btn btn-primary rounded-1">บันทึก</button>
 
                                             <a href="@Url.Action("index","MyCV")" class="btn btn-warning rounded-1">Back</a>
-                                           
+                                           <script>
+                                               function isCanEditCV() {
+                                                   var err = '';
+                                                  
+                                                   if (document.getElementById("FullDescription").value.length > 500) { err = 'รายละเอียดเพิ่มเติมเกินความยาวที่กำหนด 500 ตัวอักษร';}
+                                                   if (err == '') { return true; } else {
+                                                       swal.fire(err);
+                                                       return false;
+                                                   }
+                                               }
+                                           </script>
                                         </div>
                                     </form>
                                 </div>

@@ -521,7 +521,55 @@ Position = newData.Position,
 
             return View();
         }
-        public ActionResult EditWorkHist(Resume data)
+        public ActionResult AddExportHist(mdExportHist data)
+        {
+            //if (newData.citizenNo != null)
+            //{
+              SMCTPortal.DataAccess.database db = new SMCTPortal.DataAccess.database(_mongoClient);
+          //  db.SaveCVJobHistData(data);
+             try
+            {
+            //    var uid = User.Claims;
+            //    var xid = (from cc in User.Claims
+            //               where cc.Type.ToString().IndexOf("sub") > -1
+            //               select cc).ToList();
+            //    try
+            //    {//
+
+            //     //   clsutil _uti = new clsutil();
+            //        data.createDate = _uti.getSysDate();
+            //        data.updateDate = _uti.getSysDate();
+            //        var saveData = new tbPeople();
+            //        saveData.citizenNo = data.citizenNo;
+            //        saveData.educationInfos = data.educationInfos;
+
+            //        data.updateDate = _uti.getSysDate(true);
+                  
+            //        db.SaveCVJobHistData(data);
+
+            //        var _msg = new Message();
+            //        _msg.title = "Info";
+            //        _msg.text = "Save Success";
+            //        _msg.icon = "success";
+            //        // return RedirectToAction(nameof(Index), existData);
+            //        return RedirectToAction(nameof(Index), data);
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        var xx = ex;
+            //    }
+
+                return RedirectToAction(nameof(Index), data);
+            }
+            catch
+            {
+                return View();
+            }
+
+            return View();
+        }
+        
+   public ActionResult EditWorkHist(Resume data)
         {
             //if (newData.citizenNo != null)
             //{

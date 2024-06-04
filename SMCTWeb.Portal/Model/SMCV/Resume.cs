@@ -47,4 +47,10 @@ namespace SMCTPortal.Model.SMCV
         public string Name { get; set; }
         public string URL { get; set; }
     }
+    public class mdExportHist {
+        public string expDTE { get; set; }
+        public string expResult { get; set; }
+        public string exp64Data { get; set; }
+        
+    }
 }

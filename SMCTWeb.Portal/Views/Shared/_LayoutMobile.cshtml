@@ -69,11 +69,14 @@ var isMsg = "@ViewBag.Msg.text";
 		<div class="loader_style"></div>
 	</div>
 
-	<div class="wrapper">
+	<div class="wrapperx">
 		<!-- header -->
 		<header class="main-header">
 			<div class="container_header">
-				<div class="logo d-flex align-items-center">
+                <div class="logo d-flex align-items-center">
+                    <div class="icon_menu full_menu" id="dvHome">
+						<a href="@Url.ActionLink("Index","SmartCitizen")" class="sidebar-toggler" style="margin-top:-10px;"><i class='bx bx-home' style="font-size:1.5rem;/* padding-bottom: 30px; */border: 1px solid;border-radius: 30px;padding:5px;"></i></a>
+                    </div>
 					<a href="#">
 						<strong class="logo_icon"> <img src="assets/images/small-logo.png" alt=""> </strong> <span class="logo-default">
 							<img src="assets/images/logo2.png" alt="">
@@ -81,14 +84,15 @@ var isMsg = "@ViewBag.Msg.text";
 					</a>
 					<div class="icon_menu full_menu" style="display:none">
 						<a href="#!" class="menu-toggler sidebar-toggler"></a>
-					</div>
+                    </div>
 					<div class="icon_menu full_menu" id="dvBack" style="display:none">
 						<a href="/" class="sidebar-toggler" style="margin-top:-10px;"><i class='bx bx-arrow-back pull-left' style="font-size:2rem;/* padding-bottom: 30px; */border: 1px solid;border-radius: 30px;"></i></a>
 					</div>
+					
 				</div>
 				<div class="right_detail"  >
-					@* <div class="row d-flex align-items-center min-h pos-md-r" style="display:none">
-						<div class="col-3 search_col ">
+					<div class="d-flex align-items-center min-h pos-md-r" style="padding-right:80px">
+						@* <div class="col-3 search_col ">
 							<div class="top_function">
 
 								<div class="search" style="display:none;">
@@ -106,16 +110,17 @@ var isMsg = "@ViewBag.Msg.text";
 							</div>
 							</div>
 						</div> *@
-						<div class="col-12 d-flex justify-content-end"  >
+                        <div class="col-12 d-flex justify-content-end" >
 							<div class="right_bar_top d-flex align-items-center">
 
 								<!-- DropDown_Inbox -->
 								<div class="dropdown dropdown-inbox">
+							
 									<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
 										<i class='bx bx-envelope bx-md'></i> <span class="badge_coun"> 2 </span>
 									</a>
 									<ul class="dropdown-menu scroll_auto height_fixed mCustomScrollbar _mCS_1">
-										<div id="mCSB_1" class="mCustomScrollBox mCS-light mCSB_vertical mCSB_inside" style="max-height: none;" tabindex="0"><div id="mCSB_1_container" class="mCSB_container" style="position:relative; top:0; left:0;" dir="ltr">
+										<div id="mCSB_1" class="mCustomScrollBox mCS-light mCSB_vertical mCSB_inside" style="max-height: none;" tabindex="0"><div id="mCSB_1_container" class="mCSB_container" style="position:relative; top:0; left:0;" dir="ltr"></div>
 										<li class="bigger">
 											<h3><span class="bold">Messages</span></h3>
 											<span class="notification-label">New 2</span>
@@ -140,8 +145,20 @@ var isMsg = "@ViewBag.Msg.text";
 											 
 											</ul>
 										</li>
-								</div><div id="mCSB_1_scrollbar_vertical" class="mCSB_scrollTools mCSB_1_scrollbar mCS-light mCSB_scrollTools_vertical" style="display: block;"><div class="mCSB_draggerContainer"><div id="mCSB_1_dragger_vertical" class="mCSB_dragger" style="position: absolute; min-height: 30px; display: block; height: 205px; max-height: 290px; top: 0px;"><div class="mCSB_dragger_bar" style="line-height: 30px;"></div></div><div class="mCSB_draggerRail"></div></div></div>
-							</div></ul>
+								</ul>
+									</div>
+									<div id="mCSB_1_scrollbar_vertical" class="mCSB_scrollTools mCSB_1_scrollbar mCS-light mCSB_scrollTools_vertical" style="display: none;">
+										<div class="mCSB_draggerContainer">
+											<div id="mCSB_1_dragger_vertical" class="mCSB_dragger" style="position: absolute; min-height: 30px; display: block; height: 205px; max-height: 290px; top: 0px;">
+										        <div class="mCSB_dragger_bar" style="line-height: 30px;"></div>
+										    </div>
+											<div class="mCSB_draggerRail"></div>
+										</div>
+									</div>
+							</div>
+							
+
+
 						</div>
 						<!--DropDown_Inbox_End -->
 						<!-- Dropdown_User -->

@@ -2,7 +2,7 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
-	Layout = null;
+    Layout = "_LayoutMobile";
 }
 @model SMCTPortal.Model.SMPeople.tbPeople;
 
@@ -112,6 +112,7 @@
 	}
 
 	.leaderboard__value {
+        margin-right:-20px;
 		color: #35d8ac;
 		font-weight: 700;
 		font-size: 34px;
@@ -183,7 +184,7 @@
       </g>
     </svg>
 
-        <h1 class="leaderboard__title"><span class="leaderboard__title--top">Family Roots<a class="btn"><i class="fa fa-Home"></i>Back</a></span>
+        <h1 class="leaderboard__title"><span class="leaderboard__title--top">Family Roots</span>
             <span class="leaderboard__title--bottom">Smart People</span></h1>
     </header>
 
@@ -221,11 +222,13 @@
 				<span class="leaderboard__name">@itm.Name @itm.SureName
                     <i style="padding:20px">(@itm.Relations)</i>
                     </span>
-                <span class="leaderboard__value" onclick="fnModalConfirm(this)" data-name="@itm.Name" 
+                <span class="leaderboard__value" onclick="fnModalConfirm(this)" 
+                data-id="@itm._id"
+                data-name="@itm.Name" 
                 data-surename="@itm.SureName"
                 data-relation="@itm.Relations">
-                        <a class="btn btn-danger" style="padding:15px;font-size:1.4rem;width:100px">
-                        <i class='bx bx-cog' style="font-size:2rem;"></i>
+                        <a class="" style="font-size:1.4rem;">
+                        <i class='bx bx-cog' style="font-size:3rem;"></i>
                         </a>
                     
                 </span>
@@ -253,9 +256,7 @@
                     <button class="btn btn-info pull-right" style="padding:15px;font-size:2rem;"
                             onclick="fnModalAdd(this)">
                         <i class="bx bx-plus-circle"></i>เพิ่ม</button>
-                    <a href="/SmartCitizen" class="btn btn-warning" style="padding:15px;font-size:2rem;">
-                         <i class="bx bx-plus-circle"></i>ออก
-                     </a>
+                    
                 </div>
             </div>
         </div>
@@ -269,15 +270,15 @@
             title: "จัดการข้อมูล?",
             showDenyButton: true,
             showCancelButton: true,
-            confirmButtonText: "Edit",
-            denyButtonText: `Remove`
+            confirmButtonText: "แก้ไข",
+            denyButtonText: `ลบ`
         }).then((result) => {
             /* Read more about isConfirmed, isDenied below */
             if (result.isConfirmed) {
                 //Swal.fire("Saved!", "", "success");
                 fnModalEdit(e);
             } else if (result.isDenied) {
-                Swal.fire("Changes are not saved", "", "info");
+                //Swal.fire("Changes are not saved", "", "info");
                 fnModalRemove(e);
             }
         });
@@ -325,11 +326,13 @@
 		// alert('try to show remove modal')
 		//$("#lblRemoveCitizenNo").html($(e).attr('data-citizenno');
 		$("#modalRemove .modal-footer").css('display', 'none');
-
+        console.log('try to remove');
+        console.log(e);
 		$(".modal-remove").css('display', 'block')
 		$("#modalRemove #_id").val($(e).attr('data-id'));
 		$("#modalRemove #name").val($(e).attr('data-name'));
 		$("#modalRemove #surename").val($(e).attr('data-surename'));
+        $("#lblRemoveCitizenName").html($(e).attr('data-surename'));
 		$("#modalRemove").modal('show');
 		return;
 	}
@@ -499,7 +502,7 @@ aria-hidden="true">
 </div>
 <div class="modal fade" id="modalRemove" tabindex="-1" role="dialog" aria-labelledby="popupMessageLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
-        <div class="modal-content" style="width:800px">
+        <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="popupMessageLabel">Remove Data</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -511,25 +514,26 @@ aria-hidden="true">
                 <input type="hidden" asp-for="Name" id="name" name="name" />
                 <input type="hidden" asp-for="SureName" id="surename" name="surename" />
 
-                <div class="modal-body" style="text-align:center;display:none">
+                <div class="modal-body" >
 
                     <div class="container">
 
 
-                        <div class="form-group">
+                        <div class="form-group" style="text-align:center;display:none">
                             <div class="row">
                                 <label class="col-form-label col-sm-4 pull-left" asp-for="citizenNo" for="exampleInputText">citizenNo</label>
                                 <input type="hidden" asp-for="citizenNo" class="form-control col-sm-6" id="txtEditCitizenNo" readonly>
                             </div>
                         </div>
 
-                        <h1>ยืนยันการลบข้อมูลเลขบัตรประชาชน : <label id="lblRemoveCitizenNo"></label></h1>
+                        <h1>ยืนยันการลบข้อมูล : <label id="lblRemoveCitizenName"></label></h1>
 
 
                     </div>
                 </div>
                 <div class="modal-footer modal-remove">
-                    <button type="submit" class="btn btn-info" style="padding:15px;font-size:2rem;">ยืนยัน</button>
+                    <button type="submit" class="btn btn-info" style="padding:5px;font-size:2rem;">ยืนยัน</button>
+                    <button type="button" class="btn btn-default" style="padding:5px;font-size:2rem;">ยกเลิก</button>
                 </div>
             </form>
         </div>
