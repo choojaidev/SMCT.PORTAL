@@ -404,6 +404,21 @@ body {
                     <p class="bold">skill's</p>
                 </div>
                 <ul>
+                    @foreach(var itm in Model.SkillInfos)
+                    {
+
+                        <li>
+                            <div class="skill_name">
+                                @itm.SkillName
+                            </div>
+                            <div class="skill_progress">
+                                <span style="width: 80%;"></span>
+                            </div>
+                            <div class="skill_per">@itm.SkillValue%</div>
+                        </li>
+                    }
+                </ul>
+                <ul style="display:none">
                     <li>
                         <div class="skill_name">
                             HTML
@@ -455,7 +470,43 @@ body {
                 <div class="title">
                     <p class="bold">Social</p>
                 </div>
-                <ul>
+                <ul id="dvSocial">
+                    @foreach(var itm in Model.SocialMediaInfos)
+                    {
+                        <li data-socialname="@itm.SocialName">
+                            <div class="icon">
+                                <i class="fab fa-facebook-square"></i>
+                            </div>
+                            <div class="data">
+                                <p class="semi-bold">@itm.SocialName</p>
+                                <p>@itm.SocialURL</p>
+                            </div>
+                        </li>
+                    }
+                    </ul>
+                    <script>
+                    $(document).ready(function () {
+                        var arrIco = [];
+                        arrIco.push({ "socialName": "Facebook", "ico": "fab fa-facebook-square" })
+                        arrIco.push({ "socialName": "Twitter", "ico": "fab fa-twitter-square" })
+                        arrIco.push({ "socialName": "Youtube", "ico": "fab fa-youtube" })
+                        arrIco.push({ "socialName": "Linkin", "ico": "fab fa-linkedin" })
+                        arrIco.push({ "socialName": "Instragram", "ico": "fab fa-instragram" }) //<i class="fab fa-instagram
+                        arrIco.push({ "socialName": "Tiktok", "ico": "fab fa-tiktok" })
+                        //console.log(arrIco);
+
+
+
+
+                        $.each($("#dvSocial li"), function (i, d) {
+
+                            console.log(d);
+                            console.log(arrIco.filter(item => { return item.socialName === $(d).attr('data-socialname') })[0].ico);
+                            $($(d).find('i')).attr('class', arrIco.filter(item => { return item.socialName === $(d).attr('data-socialname') })[0].ico);
+                        });
+                    });
+                    </script>
+                <ul style="display:none">
                     <li>
                         <div class="icon">
                             <i class="fab fa-facebook-square"></i>

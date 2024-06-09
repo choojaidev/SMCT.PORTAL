@@ -160,6 +160,36 @@ namespace SMCTPortal.DataAccess
             var result = await collection.UpdateOneAsync(filter, update);
 
             return data;
+        }  
+        public async Task<Resume> SaveSkillData(Resume   data)
+        {
+            var client = new MongoClient("mongodb://localhost:27017");
+            var database = client.GetDatabase("SMZT");
+            var collection = database.GetCollection<Resume>("Citizens");
+            var filter = Builders<Resume>.Filter.Eq("citizenNo", data.citizenNo);
+            var update = Builders<Resume>.Update
+
+
+            .Set("resumeInfos.SkillInfos", data.SkillInfos );
+
+
+            var result = await collection.UpdateOneAsync(filter, update);
+            return data;
+        } 
+        public async Task<Resume> SaveSocialData(Resume   data)
+        {
+            var client = new MongoClient("mongodb://localhost:27017");
+            var database = client.GetDatabase("SMZT");
+            var collection = database.GetCollection<Resume>("Citizens");
+            var filter = Builders<Resume>.Filter.Eq("citizenNo", data.citizenNo);
+            var update = Builders<Resume>.Update
+
+
+            .Set("resumeInfos.SocialMediaInfos", data.SocialMediaInfos );
+
+
+            var result = await collection.UpdateOneAsync(filter, update);
+            return data;
         }
         public JArray GetData(string citizenId)
         {

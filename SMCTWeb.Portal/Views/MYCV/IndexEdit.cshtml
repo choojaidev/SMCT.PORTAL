@@ -11,6 +11,8 @@
     <script>document.getElementsByTagName("html")[0].className += " js";</script>
     <link href="~/assets/css/tailwind.min.css" rel="stylesheet" />
     <link href="~/assets/css/style.css" rel="stylesheet" />
+    <link href="~/assets/css/checkbox.css" rel="stylesheet" />
+
     <style>
         .xcontainer {
            /*  padding:25px;
@@ -53,8 +55,8 @@ box-shadow:  32px 32px 63px #bebebe,
                         <li><a href="#0" data-date="28/02/2014" class="cd-h-timeline__date" style="left:320px">ข้อมูลการศึกษา</a></li>
                         <li><a href="#0" data-date="20/04/2014" class="cd-h-timeline__date" style="left:520px">ประวัติการทำงาน</a></li>
                         <li><a href="#0" data-date="20/05/2014" class="cd-h-timeline__date" style="left:720px">ความสามารถ</a></li>
-                        <li><a href="#0" data-date="09/07/2014" class="cd-h-timeline__date" style="left:920px">ความสามารถพิเศษ</a></li>
-                        <li><a href="#0" data-date="09/08/2014" class="cd-h-timeline__date" style="left:920px">ข้อมูลเพิ่มเติม</a></li>
+                        <li><a href="#0" data-date="09/07/2014" class="cd-h-timeline__date" style="left:920px">social</a></li>
+                        <li><a href="#0" data-date="09/08/2014" class="cd-h-timeline__date" style="left:920px">งานอดิเรก</a></li>
                 
                     </ol>
                     <span class="cd-h-timeline__filling-line" aria-hidden="true" style="transform: scaleX(0.0652874);"></span>
@@ -79,6 +81,7 @@ box-shadow:  32px 32px 63px #bebebe,
                                     <form action="@Url.Action("editCV")">
                                         
                                         <div class="form-row">
+
                                             <div class="col-md-6">
                                                 <label>First Name</label>
                                                 <input type="text" asp-for="Name" placeholder="First Name" class="form-control" />
@@ -138,11 +141,18 @@ box-shadow:  32px 32px 63px #bebebe,
                                             </div>
                                              
                                         </div>
+                                        <div class="form-row">
+
+                                            <div class="col-md-6">
+                                                <label>Profile Picture</label>
+                                              @*   <input type="file" asp-for="Avatar" class="form-control" /> *@
+                                            </div>
+                                        </div>
                                         <div style="margin-top:15px;">
 
                                             <button type="submit" onclick="return isCanEditCV()" class="btn btn-primary rounded-1">บันทึก</button>
 
-                                            <a href="@Url.Action("index","MyCV")" class="btn btn-warning rounded-1">Back</a>
+                                            <a href="@Url.Action("index","MyCV")" class="btn btn-warning rounded-1">กลับ</a>
                                            <script>
                                                function isCanEditCV() {
                                                    var err = '';
@@ -241,7 +251,7 @@ box-shadow:  32px 32px 63px #bebebe,
                                                         @Html.TextBoxFor(m => Model.educationInfos[i].eduGPA, new { @class = "form-control" })
                                                     </div>
                                                     <div class="col-md-9">
-                                                        <label>ความสามารถพิเศษ</label>
+                                                        <label>social</label>
                                                         @Html.TextBoxFor(m => Model.educationInfos[i].eduExcellent, new { @class = "form-control" })
                                                     </div>
                                                 </div>
@@ -255,7 +265,7 @@ box-shadow:  32px 32px 63px #bebebe,
 
                                             <button type="submit" class="btn btn-primary">บันทึก</button>
                                             <a class="btn btn-info pull-right" onclick="fnModalAddEdu()"><i class="bx bx-plus"></i>เพิ่ม</a>
-
+                                            <a href="@Url.Action("index","MyCV")" class="btn btn-warning rounded-1">กลับ</a>
                                             <script>
                                                 function fnModalAddEdu() {
                                                    // alert('try to show modal')
@@ -332,7 +342,7 @@ box-shadow:  32px 32px 63px #bebebe,
 
                                             <button type="submit" class="btn btn-primary">บันทึก</button>
                                             <a class="btn btn-info pull-right" onclick="fnModalAddJobHist()"><i class="bx bx-plus"></i>เพิ่ม</a>
-
+                                            <a href="@Url.Action("index","MyCV")" class="btn btn-warning rounded-1">กลับ</a>
                                             <script>
                                                 function fnModalAddJobHist() {
                                                     $("#modalAddJobHist").modal('show');
@@ -352,70 +362,58 @@ box-shadow:  32px 32px 63px #bebebe,
                             <div class="xcontainer">
 
                                 <div class="card-body">
-                                    <form action="@Url.Action("edit")">
-                                        <div class="form-row">
-                                            <div class="col-md-6">
-                                                <label>Citizen No</label>
-                                                <input type="text" asp-for="citizenNo" placeholder="CitizenNo" class="form-control" />
-                                            </div>
-                                            <div class="col-md-6" style="display:none">
-                                                <label>Last Name</label>
-                                                <input type="text" asp-for="_id" placeholder="Last Name" class="form-control" />
-                                            </div>
-                                        </div>
-                                        <div class="form-row">
-                                            <div class="col-md-6">
-                                                <label>First Name</label>
-                                                <input type="text" asp-for="Name" placeholder="First Name" class="form-control" />
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label>Last Name</label>
-                                                <input type="text" asp-for="SureName" placeholder="Last Name" class="form-control" />
-                                            </div>
-                                        </div>
-                                        <div class="form-row">
-                                            <div class="col-md-6">
-                                                <label>Date of Birth</label>
-                                                <input type="date" asp-for="DateOfBirth" class="form-control" />
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label>Province</label>
-                                                <input type="text" asp-for="Provice" placeholder="Provice" class="form-control" />
+                                    <form action="@Url.Action("EditSkill")">
 
-                                            </div>
-                                        </div>
-                                        <div class="form-row">
-                                            
-                                            <div class="col-md-12">
-                                                <label>Address</label>
-                                                <input type="text" asp-for="Address" placeholder="Address" class="form-control" />
+                                          @Html.HiddenFor(m => Model.citizenNo)
 
+
+                                        @for (int i = 0; i < Model.SkillInfos.Count; i++)
+                                        {
+                                            @if (i > 0)
+
+                                            {
+                                                <hr />
+     
+                                     
+
+                                            }
+                                         <div class="form-row">
+
+                                            <div class="col-md-6">
+                                                    <label>@(i + 1) : รายละเอียด</label>
+                                                       
+                                                    @Html.TextBoxFor(m => Model.SkillInfos[i].SkillName, new { @class = "form-control" })
+                                            </div>
+                                            <div class="col-md-6">
+                                                        <input type="hidden" id="hdSkillVal" value="@Model.SkillInfos[i].SkillValue" />
+                                                <label>ระดับความสามารถ(%)</label>
+                                                    @Html.DropDownListFor(m => Model.SkillInfos[i].SkillValue, new SelectList(new List<string>() { "25", "50", "75", "100" }), "Select", new { @class = "form-control col-sm-4" })
+                                                   @*  <select name="SkillValue" class="form-control" style="width:80px">
+                                                  <option>25</option>
+                                                  <option>50</option>
+                                                  <option>75</option>
+                                                  <option>100</option>
+                                              </select> *@
                                             </div>
                                         </div>
-                                        <div class="form-row">
-                                            <div class="col-md-6">
-                                                <label>Email Address</label>
-                                                <input type="email" asp-for="Email" class="form-control" placeholder="Enter Email Address" />
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label>Mobile Number</label>
-                                                <input type="tel" asp-for="PhoneNo" pattern="^\d{10}$" placeholder="Enter Mobile Number" class="form-control" />
-                                            </div>
-                                        </div>
-                                        <div class="form-row" style="display:none">
-                                            <div class="col-md-6">
-                                                <label>Website</label>
-                                                <input type="url" placeholder="Enter Your Website" class="form-control" />
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label>Password</label>
-                                                <input type="password" placeholder="Password" class="form-control" />
-                                            </div>
-                                        </div>
+                                        }
+
+
+                                 
                                         <div style="margin-top:15px;">
 
                                             <button type="submit" class="btn btn-primary rounded-0">บันทึก</button>
+                                            <a class="btn btn-info pull-right" onclick="fnModalAddSkill()"><i class="bx bx-plus"></i>เพิ่ม</a>
+                                            <a href="@Url.Action("index","MyCV")" class="btn btn-warning rounded-1">กลับ</a>
                                         </div>
+                                        <script>
+                                            function fnModalAddSkill() {
+                                                // alert('try to show modal')
+                                                $("#modalAddSkill").modal('show');
+
+                                            }
+                                             
+                                        </script>
                                     </form>
                                 </div>
                             </div>
@@ -424,67 +422,64 @@ box-shadow:  32px 32px 63px #bebebe,
                 </li>
                 <li class="cd-h-timeline__event text-component">
                     <div class="cd-h-timeline__event-content container">
-                        <h1>ความสามารถพิเศษ</h1>
+                        <h1>social</h1>
                         <div class="p-1">
                             <div class="xcontainer">
 
                                 <div class="card-body">
-                                    <form action="@Url.Action("edit")">
-                                        <div class="form-row">
-                                            <div class="col-md-6">
-                                                <label>Citizen No</label>
-                                                <input type="text" asp-for="citizenNo" placeholder="CitizenNo" class="form-control" />
-                                            </div>
-                                            <div class="col-md-6" style="display:none">
-                                                <label>Last Name</label>
-                                                <input type="text" asp-for="_id" placeholder="Last Name" class="form-control" />
-                                            </div>
-                                        </div>
-                                        <div class="form-row">
-                                            <div class="col-md-6">
-                                                <label>First Name</label>
-                                                <input type="text" asp-for="Name" placeholder="First Name" class="form-control" />
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label>Last Name</label>
-                                                <input type="text" asp-for="SureName" placeholder="Last Name" class="form-control" />
-                                            </div>
-                                        </div>
-                                        <div class="form-row">
-                                            <div class="col-md-6">
-                                                <label>Date of Birth</label>
-                                                <input type="date" asp-for="DateOfBirth" class="form-control" />
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label>Address</label>
-                                                <input type="text" asp-for="Address" placeholder="Last Name" class="form-control" />
+                                    <form action="@Url.Action("EditSocial")">
 
+                                        @Html.HiddenFor(m => Model.citizenNo)
+
+
+                                        @for (int i = 0; i < Model.SocialMediaInfos.Count; i++)
+                                        {
+                                            @if (i > 0)
+
+                                            {
+                                                <hr />
+
+
+
+                                            }
+                                            <div class="form-row">
+
+                                             
+                                                <div class="col-md-4">
+
+                                                    <label>@(i + 1) : Social Name</label>
+                                                    @Html.DropDownListFor(m => Model.SocialMediaInfos[i].SocialName, new SelectList(new List<string>() { "Facebook", "Instragram", "Twitter","Youtube","LinkIn", "Tiktok","อื่นๆ" }), "Select", new { @class = "form-control" })
+                                                    @*  <select name="SkillValue" class="form-control" style="width:80px">
+                                                <option>25</option>
+                                                <option>50</option>
+                                                <option>75</option>
+                                                <option>100</option>
+                                                </select> *@
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label>Url</label>
+
+                                                    @Html.TextBoxFor(m => Model.SocialMediaInfos[i].SocialURL, new { @class = "form-control" })
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="form-row">
-                                            <div class="col-md-6">
-                                                <label>Email Address</label>
-                                                <input type="email" asp-for="Email" class="form-control" placeholder="Enter Email Address" />
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label>Mobile Number</label>
-                                                <input type="tel" asp-for="PhoneNo" pattern="^\d{10}$" placeholder="Enter Mobile Number" class="form-control" />
-                                            </div>
-                                        </div>
-                                        <div class="form-row" style="display:none">
-                                            <div class="col-md-6">
-                                                <label>Website</label>
-                                                <input type="url" placeholder="Enter Your Website" class="form-control" />
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label>Password</label>
-                                                <input type="password" placeholder="Password" class="form-control" />
-                                            </div>
-                                        </div>
+                                        }
+
+
+
                                         <div style="margin-top:15px;">
 
                                             <button type="submit" class="btn btn-primary rounded-0">บันทึก</button>
+                                            <a class="btn btn-info pull-right" onclick="fnModalAddSocial()"><i class="bx bx-plus"></i>เพิ่ม</a>
+                                            <a href="@Url.Action("index","MyCV")" class="btn btn-warning rounded-1">กลับ</a>
                                         </div>
+                                        <script>
+                                            function fnModalAddSocial() {
+                                                // alert('try to show modal')
+                                                $("#modalAddSocial").modal('show');
+
+                                            }
+
+                                        </script>
                                     </form>
                                 </div>
                             </div>
@@ -493,63 +488,79 @@ box-shadow:  32px 32px 63px #bebebe,
                 </li>
                 <li class="cd-h-timeline__event text-component">
                     <div class="cd-h-timeline__event-content container">
-                        <h1>ข้อมูลเพิ่มเติม</h1>
+                        <h1>งานอดิเรก</h1>
                         <div class="p-1">
                             <div class="xcontainer">
 
                                 <div class="card-body">
-                                    <form action="@Url.Action("edit")">
+                                    <form action="@Url.Action("editHobby")">
                                         <div class="form-row">
-                                            <div class="col-md-6">
-                                                <label>Citizen No</label>
-                                                <input type="text" asp-for="citizenNo" placeholder="CitizenNo" class="form-control" />
-                                            </div>
-                                            <div class="col-md-6" style="display:none">
-                                                <label>Last Name</label>
-                                                <input type="text" asp-for="_id" placeholder="Last Name" class="form-control" />
-                                            </div>
-                                        </div>
-                                        <div class="form-row">
-                                            <div class="col-md-6">
-                                                <label>First Name</label>
-                                                <input type="text" asp-for="Name" placeholder="First Name" class="form-control" />
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label>Last Name</label>
-                                                <input type="text" asp-for="SureName" placeholder="Last Name" class="form-control" />
-                                            </div>
-                                        </div>
-                                        <div class="form-row">
-                                            <div class="col-md-6">
-                                                <label>Date of Birth</label>
-                                                <input type="date" asp-for="DateOfBirth" class="form-control" />
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label>Address</label>
-                                                <input type="text" asp-for="Address" placeholder="Last Name" class="form-control" />
+                                            <ul style="list-style-type:none">
+                                                <li style="display:inline-flex">
+                                                    <div>
+                                                        
+                                                        <label class="el-switch" style="font-size:150%">
+                                                            <input type="checkbox" name="switch" checked="">
+                                                            <span class="el-switch-style"></span>
+                                                        </label>
+                                                       
+                                                    </div>
+                                                    <span style="padding:10px">อ่านหนังสือ</span>
+                                                </li>
+                                                <li style="display:inline-flex">
+                                                    <div>
+                                                        
+                                                        <label class="el-switch" style="font-size:150%">
+                                                            <input type="checkbox" name="switch" >
+                                                            <span class="el-switch-style"></span>
+                                                        </label>
+                                                         <span style="padding:10px">เล่นดนตรี</span>
+                                                    </div>
+                                                </li>
+                                                <li style="display:inline-flex">
+                                                    <div>
+                                                        
+                                                        <label class="el-switch" style="font-size:150%">
+                                                            <input type="checkbox" name="switch" checked="">
+                                                            <span class="el-switch-style"></span>
+                                                        </label>
+                                                         <span style="padding:10px">เล่นกีฬา</span>
+                                                    </div>
+                                                </li>
+                                                <li style="display:inline-flex">
+                                                    <div>
+                                                        
+                                                        <label class="el-switch" style="font-size:150%">
+                                                            <input type="checkbox" name="switch" checked="">
+                                                            <span class="el-switch-style"></span>
+                                                        </label>
+                                                         <span style="padding:10px">ปลูกต้นไม้</span>
+                                                    </div>
+                                                </li>
+                                                <li style="display:inline-flex">
+                                                    <div>
+                                                        
+                                                        <label class="el-switch" style="font-size:150%">
+                                                            <input type="checkbox" name="switch" checked="">
+                                                            <span class="el-switch-style"></span>
+                                                        </label>
+                                                         <span style="padding:10px">ออกกำลังกาย</span>
+                                                    </div>
+                                                </li>
+                                                <li style="display:inline-flex">
+                                                    <div>
 
-                                            </div>
+                                                        <label class="el-switch" style="font-size:150%">
+                                                            <input type="checkbox" name="switch" checked="">
+                                                            <span class="el-switch-style"></span>
+                                                        </label>
+                                                         <span style="padding:10px">อื่นๆ</span>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                          
                                         </div>
-                                        <div class="form-row">
-                                            <div class="col-md-6">
-                                                <label>Email Address</label>
-                                                <input type="email" asp-for="Email" class="form-control" placeholder="Enter Email Address" />
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label>Mobile Number</label>
-                                                <input type="tel" asp-for="PhoneNo" pattern="^\d{10}$" placeholder="Enter Mobile Number" class="form-control" />
-                                            </div>
-                                        </div>
-                                        <div class="form-row" style="display:none">
-                                            <div class="col-md-6">
-                                                <label>Website</label>
-                                                <input type="url" placeholder="Enter Your Website" class="form-control" />
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label>Password</label>
-                                                <input type="password" placeholder="Password" class="form-control" />
-                                            </div>
-                                        </div>
+                                      
                                         <div style="margin-top:15px;">
 
                                             <button type="submit" class="btn btn-primary rounded-0">บันทึก</button>
@@ -608,6 +619,7 @@ box-shadow:  32px 32px 63px #bebebe,
                 </div>
             </div>
         </div>
+
         <div class="modal fade" id="modalAddJobHist" tabindex="-1" role="dialog" aria-labelledby="popupMessageLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content" style="width:800px">
@@ -661,6 +673,112 @@ box-shadow:  32px 32px 63px #bebebe,
                                     </div>
 
 
+
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-info">ยืนยัน</button>
+                                @*     <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
+                                *@
+                            </div>
+                        </form>
+                        <div class="card-body"></div>
+                        </div>
+
+                    
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="modalAddSkill" tabindex="-1" role="dialog" aria-labelledby="popupMessageLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content" style="width:800px">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="popupMessageLabel">Update Work History</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    @*  @model SMCTPortal.Model.SMPeople.tbPeople *@
+                    <div class="container">
+                        <form action="@Url.Action("AddSkill")">
+                            <div class="modal-body" style="text-align:center;">
+
+                                <div class="container">
+
+                                    <input type="hidden" asp-for="citizenNo" />
+
+
+                                    <div class="form-row">
+
+                                        <div class="col-md-6">
+                                            <label>รายละเอียด</label>
+                                            <input type="text"   name="SkillName" class="form-control" />
+                                        </div>
+                                        <div class="col-md-6">
+                                            
+                                            <label>ระดับความสามารถ(%)</label>
+                                             <select name="SkillValue" class="form-control" style="width:80px">
+                                            <option>25</option>
+                                            <option>50</option>
+                                            <option>75</option>
+                                            <option>100</option>
+                                            </select> 
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-info">ยืนยัน</button>
+                                @*     <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
+                                *@
+                            </div>
+                        </form>
+                        <div class="card-body"></div>
+                        </div>
+
+                    
+                </div>
+            </div>
+        </div>
+   
+    <div class="modal fade" id="modalAddSocial" tabindex="-1" role="dialog" aria-labelledby="popupMessageLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content" style="width:800px">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="popupMessageLabel">Update Work History</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    @*  @model SMCTPortal.Model.SMPeople.tbPeople *@
+                    <div class="container">
+                        <form action="@Url.Action("AddSocial")">
+                            <div class="modal-body" style="text-align:center;">
+
+                                <div class="container">
+
+                                    <input type="hidden" asp-for="citizenNo" />
+
+
+                                    <div class="form-row">
+                                        <div class="col-md-6">
+
+                                            <label>Social</label>
+                                            <select name="SkillValue" class="form-control">
+                                                <option>Facebook</option>
+                                                <option>Instragram</option>
+                                                <option>Twitter</option>
+                                                <option>Tiktok</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label>URL</label>
+                                            <input type="text"   name="SkillName" class="form-control" />
+                                        </div>
+                                     
+                                    </div>
 
                                 </div>
                             </div>

@@ -111,6 +111,22 @@ namespace SMCTPortal.Controllers
                     }
 
 
+                    if (existData.resumeInfos.SkillInfos == null)
+                    {
+                        var _skillHist = new List<mdSkill>();
+                        _skillHist.Add(new mdSkill {  id = Convert.ToBase64String(Guid.NewGuid().ToByteArray()) , SkillName = "", SkillValue = ""   });
+                        existData.resumeInfos.SkillInfos  = _skillHist;
+                    }
+
+
+                    if (existData.resumeInfos.SocialMediaInfos == null)
+                    {
+                        var _lsSocial = new List<mdSocialMedia>();
+                        _lsSocial.Add(new mdSocialMedia  { id = Convert.ToBase64String(Guid.NewGuid().ToByteArray()), SocialName  = "", SocialURL = "" });
+                        existData.resumeInfos.SocialMediaInfos= _lsSocial;
+                    }
+
+
 
 
 
@@ -223,6 +239,21 @@ namespace SMCTPortal.Controllers
                         var _eduHist = new List<mdEducation>();
                         _eduHist.Add(new mdEducation { citizenNo = existData.citizenNo });
                         existData.resumeInfos.educationInfos = _eduHist;
+                    }
+
+
+                    if (existData.resumeInfos.SkillInfos == null)
+                    {
+                        var _skillHist = new List<mdSkill>();
+                        _skillHist.Add(new mdSkill { id = Convert.ToBase64String(Guid.NewGuid().ToByteArray()), SkillName = "", SkillValue = "" });
+                        existData.resumeInfos.SkillInfos = _skillHist;
+                    }
+
+                    if (existData.resumeInfos.SocialMediaInfos == null)
+                    {
+                        var _lsSocial = new List<mdSocialMedia>();
+                        _lsSocial.Add(new mdSocialMedia { id = Convert.ToBase64String(Guid.NewGuid().ToByteArray()), SocialName = "", SocialURL = "" });
+                        existData.resumeInfos.SocialMediaInfos = _lsSocial;
                     }
 
 
@@ -457,6 +488,7 @@ namespace SMCTPortal.Controllers
             return RedirectToAction("Index");// View("Index",data);
         }
 
+      
 
         public ActionResult AddWorkHist(mdJobHistory newData)
         {
@@ -616,7 +648,229 @@ Position = newData.Position,
 
             return View();
         }
-        
+
+
+        public ActionResult EditSkill(Resume data)
+        {
+            //if (newData.citizenNo != null)
+            //{
+            SMCTPortal.DataAccess.database db = new SMCTPortal.DataAccess.database(_mongoClient);
+            //  db.SaveCVJobHistData(data);
+            try
+            {
+                var uid = User.Claims;
+                var xid = (from cc in User.Claims
+                           where cc.Type.ToString().IndexOf("sub") > -1
+                           select cc).ToList();
+                try
+                {//
+
+                    //   clsutil _uti = new clsutil();
+                    data.createDate = _uti.getSysDate();
+                    data.updateDate = _uti.getSysDate();
+                    var saveData = new tbPeople();
+                    saveData.citizenNo = data.citizenNo;
+                 //   saveData.resumeInfos.SkillInfos = data.SkillInfos ;
+
+                    data.updateDate = _uti.getSysDate(true);
+
+                    db.SaveSkillData(data);
+
+                    var _msg = new Message();
+                    _msg.title = "Info";
+                    _msg.text = "Save Success";
+                    _msg.icon = "success";
+                    // return RedirectToAction(nameof(Index), existData);
+                    return RedirectToAction(nameof(Index), data);
+                }
+                catch (Exception ex)
+                {
+                    var xx = ex;
+                }
+
+                return RedirectToAction(nameof(Index), data);
+            }
+            catch
+            {
+                return View();
+            }
+
+            return View();
+        }
+
+        public ActionResult AddSkill(mdSkill newData) {
+            if (newData.citizenNo != null)
+            {
+                tbPeople data = new tbPeople();
+                //    data.citizenNo = newData.citizenNo;
+                try
+                {
+
+                    var filter = Builders<tbPeople>.Filter.Eq("citizenNo", newData.citizenNo);
+                    var citizens = _citizen.Find(filter).ToList();
+                    ViewBag.UserName = citizens[0].Name + " " + citizens[0].SureName;
+                    // Convert MongoDB documents to dynamic objects
+                    var dynamicCitizen = new JArray();
+                    foreach (var ct in citizens)
+                    {
+                        dynamicCitizen.Add(JObject.Parse(ct.ToJson()));
+                    }
+
+
+
+                    data = JsonSerializer.Deserialize<tbPeople>(dynamicCitizen.Root[0].ToString());
+                    List<mdSkill> skillLs = new List<mdSkill>();
+                    if (data.resumeInfos.SkillInfos  == null || data.resumeInfos.SkillInfos.Count == 0)
+                    {
+
+                        skillLs.Add(new mdSkill { });
+                        data.resumeInfos.SkillInfos = skillLs;
+                    }
+                    else
+                    {
+                        skillLs = data.resumeInfos.SkillInfos;
+
+                    }
+
+                    skillLs.Add(new mdSkill
+                    {
+                        citizenNo = newData.citizenNo,
+                        id = Convert.ToBase64String(Guid.NewGuid().ToByteArray()),
+                        SkillName = newData.SkillName,
+                        SkillValue = newData.SkillValue
+                    });
+                    data.resumeInfos.SkillInfos = skillLs;
+
+
+                    var _msg = new Message();
+                    _msg.title = "Info";
+                    _msg.text = "Save Success";
+                    _msg.icon = "success";
+                    ViewBag.Msg = _msg;
+
+                    // return RedirectToAction("Edit",data);
+                    return View("IndexEdit", data.resumeInfos);
+                }
+                catch (Exception ex)
+                {
+                    var xx = ex;
+                }
+            }
+
+            return View(newData);
+        }
+
+
+        public ActionResult EditSocial(Resume data)
+        {
+            //if (newData.citizenNo != null)
+            //{
+            SMCTPortal.DataAccess.database db = new SMCTPortal.DataAccess.database(_mongoClient);
+            //  db.SaveCVJobHistData(data);
+            try
+            {
+                var uid = User.Claims;
+                var xid = (from cc in User.Claims
+                           where cc.Type.ToString().IndexOf("sub") > -1
+                           select cc).ToList();
+                try
+                {//
+
+                    //   clsutil _uti = new clsutil();
+             
+                    var saveData = new tbPeople();
+                    saveData.citizenNo = data.citizenNo;
+                    //   saveData.resumeInfos.SkillInfos = data.SkillInfos ;
+
+                  
+
+                    db.SaveSocialData(data);
+
+                    var _msg = new Message();
+                    _msg.title = "Info";
+                    _msg.text = "Save Success";
+                    _msg.icon = "success";
+                    // return RedirectToAction(nameof(Index), existData);
+                    return RedirectToAction(nameof(Index), data);
+                }
+                catch (Exception ex)
+                {
+                    var xx = ex;
+                }
+
+                return RedirectToAction(nameof(Index), data);
+            }
+            catch
+            {
+                return View();
+            }
+
+            return View();
+        }
+
+        public ActionResult AddSocial(mdSocialMedia newData)
+        {
+            if (newData.citizenNo != null)
+            {
+                tbPeople data = new tbPeople();
+                //    data.citizenNo = newData.citizenNo;
+                try
+                {
+
+                    var filter = Builders<tbPeople>.Filter.Eq("citizenNo", newData.citizenNo);
+                    var citizens = _citizen.Find(filter).ToList();
+                    ViewBag.UserName = citizens[0].Name + " " + citizens[0].SureName;
+                    // Convert MongoDB documents to dynamic objects
+                    var dynamicCitizen = new JArray();
+                    foreach (var ct in citizens)
+                    {
+                        dynamicCitizen.Add(JObject.Parse(ct.ToJson()));
+                    }
+
+
+
+                    data = JsonSerializer.Deserialize<tbPeople>(dynamicCitizen.Root[0].ToString());
+                    List<mdSocialMedia> socials = new List<mdSocialMedia>();
+                    if (data.resumeInfos.SocialMediaInfos == null || data.resumeInfos.SocialMediaInfos.Count == 0)
+                    {
+
+                        socials.Add(new mdSocialMedia { });
+                        data.resumeInfos.SocialMediaInfos= socials;
+                    }
+                    else
+                    {
+                        socials = data.resumeInfos.SocialMediaInfos;
+
+                    }
+
+                    socials.Add(new mdSocialMedia
+                    {
+                        citizenNo = newData.citizenNo,
+                        id = Convert.ToBase64String(Guid.NewGuid().ToByteArray()),
+                        SocialName  = newData.SocialName,
+                        SocialURL  = newData.SocialURL 
+                    });
+                    data.resumeInfos.SocialMediaInfos= socials;
+
+
+                    var _msg = new Message();
+                    _msg.title = "Info";
+                    _msg.text = "Save Success";
+                    _msg.icon = "success";
+                    ViewBag.Msg = _msg;
+
+                    // return RedirectToAction("Edit",data);
+                    return View("IndexEdit", data.resumeInfos);
+                }
+                catch (Exception ex)
+                {
+                    var xx = ex;
+                }
+            }
+
+            return View(newData);
+        }
+
 
         // POST: MYCVController/Edit/5
         [HttpPost]

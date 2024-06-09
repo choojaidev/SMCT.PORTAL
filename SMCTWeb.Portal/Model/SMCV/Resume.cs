@@ -21,10 +21,12 @@ namespace SMCTPortal.Model.SMCV
         public string Description { get; set; }
         public string FullDescription { get; set; }
         public string HashTag { get; set; }
+        public string Avatar { get; set; }
         public List<mdSkill> SkillInfos { get; set; }
-        public List<mdSocialMedia> SocialMedias { get; set; }  
+        public List<mdSocialMedia> SocialMediaInfos { get; set; }  
         public List<mdEducation> educationInfos { get; set; }
         public List<mdJobHistory> JobHistoryInfos { get; set; }
+      
        
     }
     public class mdJobHistory {
@@ -36,15 +38,23 @@ namespace SMCTPortal.Model.SMCV
         public string SinceYear { get; set; }
         public string ToYear { get; set; }
     }
-    public class mdSkillInfo { }
+  
     public class mdSoftSkillInfo { }
     public class mdSocialMedia {
-        public string Name { get; set; }
-        public string URL { get; set; }
+        public string id { get; set; }
+        public string citizenNo { get; set; }
+        public string SocialName { get; set; }
+        public string SocialURL { get; set; }
+        public string SocialIcon { get; set; }
+        
     }
     public class mdSkill
     {
-        public string Name { get; set; }
+        public string id { get; set; }
+    
+        public string citizenNo { get; set; }
+        public string SkillName { get; set; }
+        public string SkillValue { get; set; }
         public string URL { get; set; }
     }
     public class mdExportHist {
