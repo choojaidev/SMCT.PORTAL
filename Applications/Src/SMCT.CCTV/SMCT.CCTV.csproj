@@ -63,7 +63,7 @@
         <HintPath>..\..\..\Packages\Constants.dll</HintPath>
       </Reference>
       <Reference Include="SMCTPortal.DataAccess">
-        <HintPath>..\..\..\Portal.DataAccess\bin\Release\net8.0\SMCTPortal.DataAccess.dll</HintPath>
+        <HintPath>..\..\..\Packages\SMCTPortal.DataAccess.dll</HintPath>
       </Reference>
     </ItemGroup>
 
