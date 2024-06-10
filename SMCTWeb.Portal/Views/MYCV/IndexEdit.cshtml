@@ -45,6 +45,69 @@ box-shadow:  32px 32px 63px #bebebe,
     </script>
   </head>
   <body>
+    <div class="form-row">
+        <link href="~/css/profileimg.css" rel="stylesheet" />
+        <div class="layout">
+            <div class="profile">
+                <div class="profile__picture">
+                  @*   <img src="http://i.pravatar.cc/250?img=58" />
+                 *@
+                    <div class="profile-pic">
+                        <label class="-label" for="file">
+                            <span class="glyphicon glyphicon-camera"></span>
+                            <span>Change Image</span>
+                        </label>
+                        <form action="@Url.Action("updateImgProfile")" id="frmUpdateImgProfile">
+                            <input id="file" type="file" onchange="loadFile(event)" />
+                        </form>
+                        <script>
+                            function loadFile(e) {
+                                alert('try to pass file to server')
+                                $("#frmUpdateImgProfile").submit();
+                            }
+                            </script>
+                        <img src="http://i.pravatar.cc/250?img=58" />
+                    </div>
+                </div>
+                <div class="profile__header">
+                    <div class="profile__account">
+                        <h4 class="profile__username">@Model.Name</h4>
+                    </div>
+                    <div class="profile__edit"><a class="profile__button" onclick="modalEditImg()" href="#">Edit Picture</a></div>
+                </div>
+                <div class="profile__stats">
+                    <div class="profile__stat">
+                        <div class="profile__icon profile__icon--gold"><i class="fas fa-wallet"></i></div>
+                        <div class="profile__value">
+                            47
+                            <div class="profile__key">updated</div>
+                        </div>
+                    </div>
+                    <div class="profile__stat">
+                        <div class="profile__icon profile__icon--blue"><i class="fas fa-signal"></i></div>
+                        <div class="profile__value">
+                            357
+                            <div class="profile__key">Views</div>
+                        </div>
+                    </div>
+                    <div class="profile__stat">
+                        <div class="profile__icon profile__icon--pink"><i class="fas fa-heart"></i></div>
+                        <div class="profile__value">
+                            4
+                            <div class="profile__key">DownLoad</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+      <script>
+          function modalEditImg(){
+          $("#modalImgProfile").modal('show');
+                    Dropzone.discover();
+          }
+      </script>
+            
+        </div>
+    </div>
     <section class="cd-h-timeline js-cd-h-timeline margin-bottom-md cd-h-timeline--loaded">
         
         <div class="cd-h-timeline__container container">
@@ -79,6 +142,7 @@ box-shadow:  32px 32px 63px #bebebe,
 
                                 <div class="card-body">
                                     <form action="@Url.Action("editCV")">
+                                        
                                         
                                         <div class="form-row">
 
@@ -694,7 +758,7 @@ box-shadow:  32px 32px 63px #bebebe,
             <div class="modal-dialog" role="document">
                 <div class="modal-content" style="width:800px">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="popupMessageLabel">Update Work History</h5>
+                        <h5 class="modal-title" id="popupMessageLabel">Update Skills Information</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -747,7 +811,7 @@ box-shadow:  32px 32px 63px #bebebe,
             <div class="modal-dialog" role="document">
                 <div class="modal-content" style="width:800px">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="popupMessageLabel">Update Work History</h5>
+                        <h5 class="modal-title" id="popupMessageLabel">Update Socialmedai Informations</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -792,6 +856,34 @@ box-shadow:  32px 32px 63px #bebebe,
                         </div>
 
                     
+                </div>
+            </div>
+        </div>
+        
+        
+        <div class="modal fade" id="modalImgProfile" tabindex="-1" role="dialog" aria-labelledby="popupMessageLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content" style="width:800px">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="popupMessageLabel">Upload Your Image Profile</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    @*  @model SMCTPortal.Model.SMPeople.tbPeople *@
+                    <div class="container">
+                        <div class="card-body">
+                            
+                             
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-info">ยืนยัน</button>
+                                <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
+
+                            </div>
+                    </div>
+                  </div>
+          
+
                 </div>
             </div>
         </div>

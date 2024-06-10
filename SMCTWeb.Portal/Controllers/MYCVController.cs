@@ -13,6 +13,11 @@ using System.Linq;
 using SMCTPortal.Model.SMCV;
 using System.Security.Cryptography;
 using Amazon.Runtime.EventStreams.Internal;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace SMCTPortal.Controllers
 {
@@ -808,7 +813,116 @@ Position = newData.Position,
             return View();
         }
 
-        public ActionResult AddSocial(mdSocialMedia newData)
+     
+            //[HttpPost]
+            //public ActionResult updateImgProfile(HttpPostedFileBase file)
+            //  [HttpPost]
+        public async Task<IActionResult> updateImgProfile(IFormFile file)
+        {
+                // if (msg.text != "") ViewBag.Msg = msg;
+                //if (data.citizenNo != null) { return View("IndexEdit", data.resumeInfos); }
+                try
+            {
+                var uid = User.Claims;
+                var xid = (from cc in User.Claims
+                           where cc.Type.ToString().IndexOf("sub") > -1
+                           select cc).ToList();
+                try
+                {//
+                 // var filter = Builders<BsonDocument>.Filter.Empty;
+                    string xx = xid[0].Value.ToString();
+                    //   var filter = Builders<tbPeople>.Filter.Eq("_id", data._id);
+                    var filter = Builders<tbPeople>.Filter.Eq("citizenNo", xid[0].Subject.Name.ToString());
+
+                    var citizens = _citizen.Find(filter).ToList();
+
+                    // Convert MongoDB documents to dynamic objects
+                    var dynamicCitizen = new JArray();
+                    foreach (var ct in citizens)
+                    {
+                        dynamicCitizen.Add(JObject.Parse(ct.ToJson()));
+                    }
+
+
+                    //ViewBag.Citizens = dynamicCitizen;
+                    tbPeople existData = JsonSerializer.Deserialize<tbPeople>(dynamicCitizen.Root[0].ToString());
+                    List<tbPeople> lsFam = new List<tbPeople>();
+
+                    if (existData.resumeInfos == null)
+                    {
+
+                        var _resume = new Resume();
+                        _resume.citizenNo = existData.citizenNo;
+                        _resume.Name = existData.Name;
+                        _resume.SureName = existData.SureName;
+                        _resume.educationInfos = existData.educationInfos;
+
+
+                        existData.resumeInfos = _resume;
+
+                    }
+                    if (existData.resumeInfos.JobHistoryInfos == null)
+                    {
+                        var _jobHist = new List<mdJobHistory>();
+                        _jobHist.Add(new mdJobHistory { citizenNo = existData.citizenNo });
+                        existData.resumeInfos.JobHistoryInfos = _jobHist;
+                    }
+                    if (existData.resumeInfos.educationInfos == null)
+                    {
+                        existData.resumeInfos.educationInfos = existData.educationInfos;
+                    }
+                    if (existData.resumeInfos.educationInfos == null)
+                    {
+                        var _eduHist = new List<mdEducation>();
+                        _eduHist.Add(new mdEducation { citizenNo = existData.citizenNo });
+                        existData.resumeInfos.educationInfos = _eduHist;
+                    }
+
+
+                    if (existData.resumeInfos.SkillInfos == null)
+                    {
+                        var _skillHist = new List<mdSkill>();
+                        _skillHist.Add(new mdSkill { id = Convert.ToBase64String(Guid.NewGuid().ToByteArray()), SkillName = "", SkillValue = "" });
+                        existData.resumeInfos.SkillInfos = _skillHist;
+                    }
+
+                    if (existData.resumeInfos.SocialMediaInfos == null)
+                    {
+                        var _lsSocial = new List<mdSocialMedia>();
+                        _lsSocial.Add(new mdSocialMedia { id = Convert.ToBase64String(Guid.NewGuid().ToByteArray()), SocialName = "", SocialURL = "" });
+                        existData.resumeInfos.SocialMediaInfos = _lsSocial;
+                    }
+
+
+                    //if (data.citizenNo != null) {
+                    //    existData.resumeInfos = data.resumeInfos;
+                    //}
+
+
+                    var _msg = new Message();
+                    _msg.title = "Info";
+                    _msg.text = "Save Success";
+                    _msg.icon = "success";
+
+                    // DataAccess.database db = new DataAccess.database(_mongoClient);
+                    // db.UpdateFamilyData(existData);
+                    // return RedirectToAction(nameof(Index), existData);
+                    return View("IndexEdit", existData.resumeInfos);
+                }
+                catch (Exception ex)
+                {
+                    var xx = ex;
+                }
+                return View();
+                // return RedirectToAction(nameof(Index), data);
+            }
+            catch
+            {
+                return View();
+            }
+            return View();
+        }
+       public ActionResult AddSocial(mdSocialMedia newData)
         {
             if (newData.citizenNo != null)
             {
