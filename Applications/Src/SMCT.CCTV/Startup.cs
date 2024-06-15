@@ -35,7 +35,7 @@ namespace SMCTPortal
         public Startup(IConfiguration configuration)
         {
             _configuration = configuration;
-           
+
         }
 
         public void ConfigureServices(IServiceCollection services)
@@ -49,7 +49,7 @@ namespace SMCTPortal
 
 
             JwtSecurityTokenHandler.DefaultMapInboundClaims = false;
-       
+
 
             services.AddControllersWithViews();
 
@@ -64,7 +64,7 @@ namespace SMCTPortal
                 var factory = r.GetRequiredService<IHttpClientFactory>();
                 return new DiscoveryCache(Constants.Authority, () => factory.CreateClient());
             });
-            
+
             services.AddAuthentication(options =>
             {
                 options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
@@ -72,19 +72,19 @@ namespace SMCTPortal
             })
                 .AddCookie(options =>
                 {
-                    options.Cookie.Name = "SMCTPORTAL";
+                    options.Cookie.Name = "smctportal-cctv-dev";
                 })
                 .AddOpenIdConnect("oidc", options =>
                 {
                     options.Authority = Constants.Authority;
                     //live id => SMCTPORTAL-Live : live => 2CuPN9Zn8Ipr8jsp1w9MlQ== ()
-                    options.ClientId = "SMCTPORTAL-CCTV-DEV"; //weatherforcast-DEV SMCTPORTAL-DEV 
+                    options.ClientId = "smctportal-cctv-dev"; //weatherforcast-DEV SMCTPORTAL-DEV 
                     options.ClientSecret = "secret";
 
                     // code flow + PKCE (PKCE is turned on by default)
                     options.ResponseType = "code";
                     options.UsePkce = true;
-
+                    //openid profile email resource1.scope1 resource2.scope1 transaction custom.profile custom.parent roles
                     options.Scope.Clear();
                     options.Scope.Add("openid");
                     options.Scope.Add("profile");
@@ -116,7 +116,7 @@ namespace SMCTPortal
                     };
                 });
 
-      
+
         }
 
         public void Configure(IApplicationBuilder app)
@@ -169,9 +169,9 @@ namespace SMCTPortal
             //        await ctx.Response.WriteAsync(html);
             //    }
             //});
-           
-                app.UseExceptionHandler("/Home/Error");
-           
+
+            app.UseExceptionHandler("/Home/Error");
+
 
 
 
@@ -184,13 +184,9 @@ namespace SMCTPortal
                 .AllowAnyMethod());
             app.UseCors();
             app.UseCookiePolicy();
-            
+
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute(
-        name: "root",
-        pattern: "/",
-        defaults: new { controller = "Portal", action = "Index" });
                 endpoints.MapDefaultControllerRoute()
                     .RequireAuthorization();
             });

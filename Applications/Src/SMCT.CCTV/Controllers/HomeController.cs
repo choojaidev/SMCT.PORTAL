@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace SMCTPortal.Controllers
@@ -6,9 +7,10 @@ namespace SMCTPortal.Controllers
     public class HomeController : Controller
     {
         // GET: HomeController
+        [Authorize]
         public ActionResult Index()
         {
-            return View("Portal/Index");
+            return View();
         }
 
         // GET: HomeController/Details/5

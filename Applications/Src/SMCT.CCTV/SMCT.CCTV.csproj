@@ -59,16 +59,22 @@
 
 
     <ItemGroup>
-      <Reference Include="Constants">
-        <HintPath>..\..\..\Packages\Constants.dll</HintPath>
-      </Reference>
+      <ProjectReference Include="..\..\..\Libs\Src\Constants\Constants.csproj" />
+    </ItemGroup>
+
+
+    <ItemGroup>
       <Reference Include="SMCTPortal.DataAccess">
-        <HintPath>..\..\..\Portal.DataAccess\bin\Release\net8.0\SMCTPortal.DataAccess.dll</HintPath>
+        <HintPath>..\..\..\Packages\SMCTPortal.DataAccess.dll</HintPath>
       </Reference>
     </ItemGroup>
 
 
     <ItemGroup>
+      <Content Update="Views\Home\Index.cshtml">
+        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      </Content>
       <Content Update="wwwroot\css\MyCV\jquery.mCustomScrollbar.min.css">
         <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
         <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
