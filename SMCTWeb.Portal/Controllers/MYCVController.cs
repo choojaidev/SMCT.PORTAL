@@ -38,8 +38,11 @@ namespace SMCTPortal.Controllers
         }
 
         clsutil _uti = new clsutil();
-        public MYCVController(SMCTDbContext context, MongoRepository mongoRepository)
+        private readonly IWebHostEnvironment _environment;
+
+        public MYCVController(SMCTDbContext context, MongoRepository mongoRepository, IWebHostEnvironment environment)
         {
+            _environment = environment;
             _context = context;
             _mongoRepository = mongoRepository;
 
@@ -816,12 +819,15 @@ Position = newData.Position,
      
             //[HttpPost]
             //public ActionResult updateImgProfile(HttpPostedFileBase file)
-            //  [HttpPost]
+             [HttpPost]
         public async Task<IActionResult> updateImgProfile(IFormFile file)
         {
-                // if (msg.text != "") ViewBag.Msg = msg;
-                //if (data.citizenNo != null) { return View("IndexEdit", data.resumeInfos); }
-                try
+            tbPeople existData = new tbPeople();
+            // if (msg.text != "") ViewBag.Msg = msg;
+            //if (data.citizenNo != null) { return View("IndexEdit", data.resumeInfos); }
+           
+           
+            try
             {
                 var uid = User.Claims;
                 var xid = (from cc in User.Claims
@@ -836,6 +842,38 @@ Position = newData.Position,
 
                     var citizens = _citizen.Find(filter).ToList();
 
+                    // store avatar
+                    string newFileName = "";
+                    try
+                    {
+                        if (file != null && file.Length > 0)
+                        {
+
+                            var fileName = Path.GetFileName(file.FileName);
+                            var extention = Path.GetExtension(file.FileName).Split('.')[1];
+                            newFileName = _uti.getSysDate(true) + xid[0].Subject.Name.ToString() + "." + extention; //Convert.ToBase64String(Guid.NewGuid().ToByteArray())
+                            var path = Path.Combine(_environment.WebRootPath, "images\\CV\\avatar\\", newFileName);
+
+                            using (var stream = new FileStream(path, FileMode.Create))
+                            {
+                                await file.CopyToAsync(stream);
+                            }
+
+                            ViewBag.Message = "File uploaded successfully.";
+                        }
+                        else
+                        {
+                            ViewBag.Message = "No file selected.";
+                        }
+
+                    }
+                    catch
+                    {
+                        ViewBag.Message = "No file selected.";
+
+                    }
+
+
                     // Convert MongoDB documents to dynamic objects
                     var dynamicCitizen = new JArray();
                     foreach (var ct in citizens)
@@ -845,7 +883,7 @@ Position = newData.Position,
 
 
                     //ViewBag.Citizens = dynamicCitizen;
-                    tbPeople existData = JsonSerializer.Deserialize<tbPeople>(dynamicCitizen.Root[0].ToString());
+                      existData = JsonSerializer.Deserialize<tbPeople>(dynamicCitizen.Root[0].ToString());
                     List<tbPeople> lsFam = new List<tbPeople>();
 
                     if (existData.resumeInfos == null)
@@ -857,7 +895,7 @@ Position = newData.Position,
                         _resume.SureName = existData.SureName;
                         _resume.educationInfos = existData.educationInfos;
 
-
+                   
                         existData.resumeInfos = _resume;
 
                     }
@@ -897,30 +935,35 @@ Position = newData.Position,
                     //if (data.citizenNo != null) {
                     //    existData.resumeInfos = data.resumeInfos;
                     //}
-
-
+                   
                     var _msg = new Message();
                     _msg.title = "Info";
                     _msg.text = "Save Success";
                     _msg.icon = "success";
-
-                    // DataAccess.database db = new DataAccess.database(_mongoClient);
-                    // db.UpdateFamilyData(existData);
+                    ViewBag.Msg = _msg;
+                    existData.resumeInfos.Avatar = newFileName;
+                    DataAccess.database db = new DataAccess.database(_mongoClient);
+                    db.UpdateAvatarData(existData.resumeInfos);
                     // return RedirectToAction(nameof(Index), existData);
-                    return View("IndexEdit", existData.resumeInfos);
+                    return RedirectToAction(nameof(Edit), existData.resumeInfos);
                 }
                 catch (Exception ex)
                 {
                     var xx = ex;
                 }
-                return View();
+                return RedirectToAction(nameof(Edit), existData.resumeInfos);
                 // return RedirectToAction(nameof(Index), data);
             }
-            catch
+            catch(Exception ex)
             {
-                return View();
+                var _msg = new Message();
+                _msg.title = "Error";
+                _msg.text = "Error " + ex.Message .ToString ();
+                _msg.icon = "Error";
+                ViewBag.Msg = _msg;
+                return RedirectToAction(nameof(Edit), existData.resumeInfos);
             }
-            return View();
+            return RedirectToAction(nameof(Edit), existData.resumeInfos);
         }
        public ActionResult AddSocial(mdSocialMedia newData)
         {

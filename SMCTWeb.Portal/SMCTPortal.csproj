@@ -50,6 +50,7 @@
 
     <ItemGroup>
       <Folder Include="wwwroot\css\mobile\" />
+      <Folder Include="wwwroot\images\CV\avatar\" />
       <Folder Include="wwwroot\images\peoples\" />
     </ItemGroup>
 

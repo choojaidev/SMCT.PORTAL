@@ -356,7 +356,8 @@ body {
     <div class="resume_left">
         <div class="resume_profile">
            
-            <img src="images/CV/photo.png" alt="profile_pic">
+           @*  <img src="images/CV/photo.png" alt="profile_pic"> *@
+            <img src="../../images/CV/avatar/@Model.Avatar" alt="profile_pic">
         </div>
         <div class="resume_content">
             <div class="resume_item resume_info">
@@ -412,7 +413,7 @@ body {
                                 @itm.SkillName
                             </div>
                             <div class="skill_progress">
-                                <span style="width: 80%;"></span>
+                                <span style="width: @itm.SkillValue%;"></span>
                             </div>
                             <div class="skill_per">@itm.SkillValue%</div>
                         </li>

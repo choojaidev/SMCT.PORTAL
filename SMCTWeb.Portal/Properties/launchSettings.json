@@ -6,7 +6,8 @@
       "launchUrl": "https://localhost:44302/portal",
       "applicationUrl": "https://localhost:44302",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+          "AvatarPath": "/images/CV/avatar/"
       }
     }
   }

@@ -57,23 +57,28 @@ box-shadow:  32px 32px 63px #bebebe,
                             <span class="glyphicon glyphicon-camera"></span>
                             <span>Change Image</span>
                         </label>
-                        <form action="@Url.Action("updateImgProfile")" id="frmUpdateImgProfile">
-                            <input id="file" type="file" onchange="loadFile(event)" />
+                        <form action="@Url.Action("updateImgProfile")" id="frmUpdateImgProfile" method="post" enctype="multipart/form-data">
+                            <input name="file" id="file" type="file" onchange="loadFile(event)" />
                         </form>
                         <script>
                             function loadFile(e) {
-                                alert('try to pass file to server')
+                                console.log(e);
+                             //   alert('try to pass file to server')
                                 $("#frmUpdateImgProfile").submit();
                             }
                             </script>
-                        <img src="http://i.pravatar.cc/250?img=58" />
+                   
+                        <img src="../../images/CV/avatar/@Model.Avatar">
                     </div>
                 </div>
                 <div class="profile__header">
                     <div class="profile__account">
                         <h4 class="profile__username">@Model.Name</h4>
                     </div>
-                    <div class="profile__edit"><a class="profile__button" onclick="modalEditImg()" href="#">Edit Picture</a></div>
+                    <div class="profile__edit">
+                        <a class="profile__button" href="@Url.Action("index","MyCV")">
+                        กลับหน้าหลัก</a></div>
+                     
                 </div>
                 <div class="profile__stats">
                     <div class="profile__stat">
@@ -205,18 +210,12 @@ box-shadow:  32px 32px 63px #bebebe,
                                             </div>
                                              
                                         </div>
-                                        <div class="form-row">
+                                 
+                                        <div style="margin-top:15px;text-align: center;">
 
-                                            <div class="col-md-6">
-                                                <label>Profile Picture</label>
-                                              @*   <input type="file" asp-for="Avatar" class="form-control" /> *@
-                                            </div>
-                                        </div>
-                                        <div style="margin-top:15px;">
+                                            <button type="submit" onclick="return isCanEditCV()" class="btn btn-info rounded-1">บันทึก</button>
 
-                                            <button type="submit" onclick="return isCanEditCV()" class="btn btn-primary rounded-1">บันทึก</button>
-
-                                            <a href="@Url.Action("index","MyCV")" class="btn btn-warning rounded-1">กลับ</a>
+                                          
                                            <script>
                                                function isCanEditCV() {
                                                    var err = '';
@@ -325,11 +324,11 @@ box-shadow:  32px 32px 63px #bebebe,
 
                                             
                                     </div>
-                                        <div style="margin-top:15px;" class="form-footer"> 
+                                        <div style="margin-top:15px;text-align: center;" class="form-footer">
 
-                                            <button type="submit" class="btn btn-primary">บันทึก</button>
+                                            <button type="submit" class="btn btn-info rounded-1">บันทึก</button>
                                             <a class="btn btn-info pull-right" onclick="fnModalAddEdu()"><i class="bx bx-plus"></i>เพิ่ม</a>
-                                            <a href="@Url.Action("index","MyCV")" class="btn btn-warning rounded-1">กลับ</a>
+                                            @* <a href="@Url.Action("index","MyCV")" class="btn btn-warning rounded-1">กลับ</a> *@
                                             <script>
                                                 function fnModalAddEdu() {
                                                    // alert('try to show modal')
@@ -402,11 +401,11 @@ box-shadow:  32px 32px 63px #bebebe,
                                             </div>
                                         }
 
-                                        <div style="margin-top:15px;">
+                                        <div style="margin-top:15px;text-align: center;">
 
-                                            <button type="submit" class="btn btn-primary">บันทึก</button>
-                                            <a class="btn btn-info pull-right" onclick="fnModalAddJobHist()"><i class="bx bx-plus"></i>เพิ่ม</a>
-                                            <a href="@Url.Action("index","MyCV")" class="btn btn-warning rounded-1">กลับ</a>
+                                            <button type="submit" class="btn btn-info rounded-1">บันทึก</button>
+                                            <a class="btn btn-info rounded-1" onclick="fnModalAddJobHist()"><i class="bx bx-plus"></i>เพิ่ม</a>
+                                     @*        <a href="@Url.Action("index","MyCV")" class="btn btn-warning rounded-1">กลับ</a> *@
                                             <script>
                                                 function fnModalAddJobHist() {
                                                     $("#modalAddJobHist").modal('show');
@@ -464,11 +463,11 @@ box-shadow:  32px 32px 63px #bebebe,
 
 
                                  
-                                        <div style="margin-top:15px;">
+                                        <div style="margin-top:15px;text-align: center;">
 
-                                            <button type="submit" class="btn btn-primary rounded-0">บันทึก</button>
+                                            <button type="submit" class="btn btn-info rounded-1">บันทึก</button>
                                             <a class="btn btn-info pull-right" onclick="fnModalAddSkill()"><i class="bx bx-plus"></i>เพิ่ม</a>
-                                            <a href="@Url.Action("index","MyCV")" class="btn btn-warning rounded-1">กลับ</a>
+                                          @*   <a href="@Url.Action("index","MyCV")" class="btn btn-warning rounded-1">กลับ</a> *@
                                         </div>
                                         <script>
                                             function fnModalAddSkill() {
@@ -530,11 +529,11 @@ box-shadow:  32px 32px 63px #bebebe,
 
 
 
-                                        <div style="margin-top:15px;">
+                                        <div style="margin-top:15px;text-align: center;">
 
-                                            <button type="submit" class="btn btn-primary rounded-0">บันทึก</button>
+                                            <button type="submit" class="btn btn-info rounded-1">บันทึก</button>
                                             <a class="btn btn-info pull-right" onclick="fnModalAddSocial()"><i class="bx bx-plus"></i>เพิ่ม</a>
-                                            <a href="@Url.Action("index","MyCV")" class="btn btn-warning rounded-1">กลับ</a>
+                                            @* <a href="@Url.Action("index","MyCV")" class="btn btn-warning rounded-1">กลับ</a> *@
                                         </div>
                                         <script>
                                             function fnModalAddSocial() {
@@ -625,9 +624,9 @@ box-shadow:  32px 32px 63px #bebebe,
                                           
                                         </div>
                                       
-                                        <div style="margin-top:15px;">
+                                        <div style="margin-top:15px;text-align: center;">
 
-                                            <button type="submit" class="btn btn-primary rounded-0">บันทึก</button>
+                                            <button type="submit" class="btn btn-info rounded-1">บันทึก</button>
                                         </div>
                                     </form>
                                 </div>

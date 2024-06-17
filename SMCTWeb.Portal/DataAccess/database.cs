@@ -46,6 +46,24 @@ namespace SMCTPortal.DataAccess
 
             var result = await collection.UpdateOneAsync(filter, update);
             return data;
+        } 
+        public async Task<Resume> UpdateAvatarData(Resume data)
+        {
+            var client = new MongoClient("mongodb://localhost:27017");
+            var database = client.GetDatabase("SMZT");
+            var collection = database.GetCollection<tbPeople>("Citizens");
+            var filter = Builders<tbPeople>.Filter.Eq("citizenNo", data.citizenNo);
+            var update = Builders<tbPeople>.Update
+            //.Set("Name", people.Name)
+            //.Set("SureName", people.SureName)
+            //.Set("DateOfBirth", people.DateOfBirth)
+            //.Set("PhoneNo", people.PhoneNo)
+            //.Set("Email", people.Email)
+            //.Set("Relations", people.Relations);
+            .Set("resumeInfos.Avatar", data.Avatar);
+          
+            var result = await collection.UpdateOneAsync(filter, update);
+            return data;
         }
         public async Task<tbPeople> SaveEduData(tbPeople data)
 		{
